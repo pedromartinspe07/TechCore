@@ -38,13 +38,6 @@ const faqData = [
       ]
     },
     {
-      key: 'PLACA MÃE',
-      questions: [
-        { q: 'O que é uma placa-mãe?', a: 'É o componente que conecta todos os outros, como CPU, RAM, GPU e armazenamento.' },
-        { q: 'Como escolher a placa-mãe ideal?', a: 'Verifique o soquete do processador, tipo de memória suportada e recursos extras.' }
-      ]
-    },
-    {
       key: 'MEMÓRIA RAM',
       questions: [
         { q: 'O que é memória RAM?', a: 'É a memória temporária do computador, usada para armazenar dados de programas em uso.' },
