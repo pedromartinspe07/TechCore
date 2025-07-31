@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overclock Simulator - TechCore</title>
+  <link rel="icon" href="img/favicon.ico" type="image/png">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/overclock.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>TechCore Overclock Simulator</h1>
+    
+    <section>
+      <h2>Configurações do Sistema</h2>
+      <div class="system-config">
+        <div class="config-card">
+          <h3>CPU: Intel Core i7-12700K</h3>
+          <div class="specs">
+            <div class="spec-item">
+              <span class="label">Frequência Base:</span>
+              <span class="value">3.60 GHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Frequência Atual:</span>
+              <span class="value" id="currentFreq">3.60 GHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Temperatura:</span>
+              <span class="value" id="cpuTemp">45°C</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Voltagem:</span>
+              <span class="value" id="cpuVoltage">1.25V</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="config-card">
+          <h3>GPU: NVIDIA RTX 3080 Ti</h3>
+          <div class="specs">
+            <div class="spec-item">
+              <span class="label">Core Clock:</span>
+              <span class="value" id="gpuCore">1665 MHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Memory Clock:</span>
+              <span class="value" id="gpuMemory">19000 MHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Temperatura:</span>
+              <span class="value" id="gpuTemp">65°C</span>
+            </div>
+            <div class="spec-item">
+              <span class="label">Power Limit:</span>
+              <span class="value" id="gpuPower">100%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Controles de Overclock</h2>
+      <div class="overclock-controls">
+        <div class="control-group">
+          <h3>CPU Overclock</h3>
+          <div class="slider-container">
+            <label>Multiplicador CPU:</label>
+            <input type="range" id="cpuMultiplier" min="36" max="55" value="36" class="slider">
+            <span class="slider-value" id="cpuMultiplierValue">36x</span>
+          </div>
+          <div class="slider-container">
+            <label>Voltagem CPU:</label>
+            <input type="range" id="cpuVoltageSlider" min="100" max="150" value="125" class="slider">
+            <span class="slider-value" id="cpuVoltageValue">1.25V</span>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <h3>GPU Overclock</h3>
+          <div class="slider-container">
+            <label>Core Clock Offset:</label>
+            <input type="range" id="gpuCoreOffset" min="-200" max="200" value="0" class="slider">
+            <span class="slider-value" id="gpuCoreValue">+0 MHz</span>
+          </div>
+          <div class="slider-container">
+            <label>Memory Clock Offset:</label>
+            <input type="range" id="gpuMemoryOffset" min="-1000" max="2000" value="0" class="slider">
+            <span class="slider-value" id="gpuMemoryValue">+0 MHz</span>
+          </div>
+          <div class="slider-container">
+            <label>Power Limit:</label>
+            <input type="range" id="gpuPowerLimit" min="80" max="120" value="100" class="slider">
+            <span class="slider-value" id="gpuPowerValue">100%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Monitoramento em Tempo Real</h2>
+      <div class="monitoring-grid">
+        <div class="monitor-card">
+          <h4>Performance</h4>
+          <div class="metric">
+            <span class="metric-label">CPU Score:</span>
+            <span class="metric-value" id="cpuScore">8,450</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">GPU Score:</span>
+            <span class="metric-value" id="gpuScore">12,300</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Overall:</span>
+            <span class="metric-value" id="overallScore">10,375</span>
+          </div>
+        </div>
+        
+        <div class="monitor-card">
+          <h4>Temperaturas</h4>
+          <div class="temp-gauge" id="cpuTempGauge">
+            <div class="gauge-fill" id="cpuTempFill"></div>
+            <span class="gauge-text">45°C</span>
+          </div>
+          <div class="temp-gauge" id="gpuTempGauge">
+            <div class="gauge-fill" id="gpuTempFill"></div>
+            <span class="gauge-text">65°C</span>
+          </div>
+        </div>
+        
+        <div class="monitor-card">
+          <h4>Estabilidade</h4>
+          <div class="stability-meter">
+            <div class="meter-fill" id="stabilityFill"></div>
+            <span class="meter-text" id="stabilityText">100%</span>
+          </div>
+          <div class="stability-status" id="stabilityStatus">Estável</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ações</h2>
+      <div class="action-buttons">
+        <button class="action-btn primary" onclick="applyOverclock()">Aplicar Overclock</button>
+        <button class="action-btn secondary" onclick="resetSettings()">Reset</button>
+        <button class="action-btn danger" onclick="stressTest()">Stress Test</button>
+        <button class="action-btn info" onclick="saveProfile()">Salvar Perfil</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Histórico de Overclocks</h2>
+      <div class="history-list">
+        <div class="history-item">
+          <span class="profile-name">Perfil 1 - Gaming</span>
+          <span class="profile-specs">CPU: 5.0GHz | GPU: +150MHz | Score: 11,200</span>
+          <button class="load-btn" onclick="loadProfile(1)">Carregar</button>
+        </div>
+        <div class="history-item">
+          <span class="profile-name">Perfil 2 - Balanced</span>
+          <span class="profile-specs">CPU: 4.8GHz | GPU: +100MHz | Score: 10,800</span>
+          <button class="load-btn" onclick="loadProfile(2)">Carregar</button>
+        </div>
+        <div class="history-item">
+          <span class="profile-name">Perfil 3 - Extreme</span>
+          <span class="profile-specs">CPU: 5.2GHz | GPU: +200MHz | Score: 11,500</span>
+          <button class="load-btn" onclick="loadProfile(3)">Carregar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/overclock.js"></script>
+  <!-- Script do menu hamburguer -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html> 

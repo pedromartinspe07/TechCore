@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechCore Terminal - TechCore</title>
+  <link rel="icon" href="img/favicon.ico" type="image/png">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>TechCore Terminal v1.0</h1>
+    
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <span class="terminal-title">TechCore Terminal</span>
+        <span class="terminal-controls">
+          <span class="control minimize">_</span>
+          <span class="control maximize">□</span>
+          <span class="control close">×</span>
+        </span>
+      </div>
+      
+      <div class="terminal-body">
+        <div class="terminal-output" id="terminalOutput">
+          <div class="output-line">
+            <span class="prompt">root@techcore:~$</span> <span class="command">help</span>
+          </div>
+          <div class="output-line">
+            <span class="text">TechCore Terminal v1.0 - Sistema de Navegação</span>
+          </div>
+          <div class="output-line">
+            <span class="text">Comandos disponíveis:</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  help     - Mostra esta ajuda</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  home     - Navega para página inicial</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  cpu      - Informações sobre processadores</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  gpu      - Informações sobre GPUs</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  ram      - Informações sobre memória</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  about    - Sobre o projeto</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  clear    - Limpa o terminal</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  exit     - Sair do terminal</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  matrix   - Efeito Matrix</span>
+          </div>
+          <div class="output-line">
+            <span class="text">  hack     - Modo hacker</span>
+          </div>
+        </div>
+        
+        <div class="terminal-input-line">
+          <span class="prompt">root@techcore:~$</span>
+          <input type="text" id="terminalInput" class="terminal-input" placeholder="Digite um comando..." autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/terminal.js"></script>
+  <!-- Script do menu hamburguer -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html> 

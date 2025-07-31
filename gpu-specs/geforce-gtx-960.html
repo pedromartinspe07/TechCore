@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA GeForce GTX 960 - GPU Specs Database</title>
+  <link rel="icon" href="../img/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .gpu-detail {
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px solid #00ff41;
+    }
+    
+    .gpu-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+    
+    .gpu-image-large {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(45deg, #1a1a2e, #16213e);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #00ff41;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gpu-image-large {
+      background-image: url('img/gtx960.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .gpu-info-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #00ff41;
+    }
+    
+    .gpu-manufacturer {
+      color: #cccccc;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .gpu-quick-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .quick-spec-item {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
+      border-radius: 5px;
+      border: 1px solid #00ff41;
+      text-align: center;
+    }
+    
+    .quick-spec-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ff41;
+      display: block;
+    }
+    
+    .quick-spec-label {
+      color: #cccccc;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .specs-section {
+      margin: 2rem 0;
+    }
+    
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    
+    .specs-category {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #00ff41;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    
+    .specs-category h3 {
+      color: #00ff41;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      border-bottom: 1px solid #00ff41;
+      padding-bottom: 0.5rem;
+    }
+    
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    }
+    
+    .spec-label {
+      color: #cccccc;
+      font-weight: bold;
+    }
+    
+    .spec-value {
+      color: #00ff41;
+      font-weight: bold;
+    }
+    
+    .performance-section {
+      margin: 2rem 0;
+    }
+    
+    
+    .performance-table-container {
+      max-height: 600px;
+      overflow-y: auto;
+      border-radius: 8px;
+      border: 1px solid #00ff41;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    
+    .performance-table-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .performance-table-container::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+    
+    .performance-table-container::-webkit-scrollbar-thumb {
+      background: #00ff41;
+      border-radius: 4px;
+    }
+    
+    .performance-table-container::-webkit-scrollbar-thumb:hover {
+      background: #00cc33;
+    }
+    
+    .performance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;
+      background: transparent;
+    }
+    
+    .performance-table a {
+      color: #00ff41;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .performance-table a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ff41;
+    }
+    
+    .performance-table th {
+      background: #00ff41;
+      color: #000;
+      padding: 1rem;
+      text-align: left;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .performance-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+      color: #cccccc;
+    }
+    
+    .performance-table tr:hover {
+      background: rgba(0, 255, 65, 0.1);
+    }
+    
+    .performance-bar {
+      background: rgba(0, 0, 0, 0.5);
+      height: 20px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #00ff41;
+    }
+    
+    .performance-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff41, #00cc33);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      position: relative;
+    }
+    
+    .performance-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .performance-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 0.8rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+    
+    .breadcrumb {
+      margin-bottom: 2rem;
+      color: #cccccc;
+    }
+    
+    .breadcrumb a {
+      color: #00ff41;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, #00ff41, #00cc33);
+      color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .back-btn:hover {
+      background: linear-gradient(45deg, #00cc33, #00ff41);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../processadores.html">Processadores</a></li>
+        <li><a href="../gpus.html">GPUs</a></li>
+        <li><a href="../memoria.html">Memória</a></li>
+        <li><a href="../terminal.html">Terminal</a></li>
+        <li><a href="../benchmark.html">Benchmark</a></li>
+        <li><a href="../overclock.html">Overclock</a></li>
+        <li><a href="../sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a> &gt; <a href="../gpus.html">GPUs</a> &gt; <a href="index.html">GPU Specs Database</a> &gt; NVIDIA GeForce GTX 960
+    </div>
+    
+    <a href="index.html" class="back-btn">← Voltar à Database</a>
+    
+    <div class="gpu-detail">
+      <div class="gpu-header">
+        <div class="gpu-image-large"></div>
+        <div class="gpu-info-header">
+          <h1>NVIDIA GeForce GTX 960</h1>
+          <div class="gpu-manufacturer">NVIDIA GeForce GTX Series</div>
+          <p>A NVIDIA GeForce GTX 960 é uma placa de vídeo de entrada da série GTX 9. Lançada em 2015, oferece performance adequada para jogos em 1080p com configurações médias e é uma opção popular para builds de orçamento.</p>
+        </div>
+      </div>
+      
+      <div class="gpu-quick-specs">
+        <div class="quick-spec-item">
+          <span class="quick-spec-value">2GB</span>
+          <span class="quick-spec-label">Memória GDDR5</span>
+        </div>
+        <div class="quick-spec-item">
+          <span class="quick-spec-value">1178 MHz</span>
+          <span class="quick-spec-label">Clock Boost</span>
+        </div>
+        <div class="quick-spec-item">
+          <span class="quick-spec-value">28nm</span>
+          <span class="quick-spec-label">Processo</span>
+        </div>
+        <div class="quick-spec-item">
+          <span class="quick-spec-value">2015</span>
+          <span class="quick-spec-label">Lançamento</span>
+        </div>
+      </div>
+      
+      <div class="specs-section">
+        <h2>Especificações Detalhadas</h2>
+        <div class="specs-grid">
+          <div class="specs-category">
+            <h3>Arquitetura</h3>
+            <div class="spec-item">
+              <span class="spec-label">Arquitetura:</span>
+              <span class="spec-value">Maxwell</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span>
+              <span class="spec-value">28nm TSMC</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Transistores:</span>
+              <span class="spec-value">2.94B</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Tamanho do Die:</span>
+              <span class="spec-value">227 mm²</span>
+            </div>
+          </div>
+          
+          <div class="specs-category">
+            <h3>Clock e Performance</h3>
+            <div class="spec-item">
+              <span class="spec-label">Clock Base:</span>
+              <span class="spec-value">1127 MHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock Boost:</span>
+              <span class="spec-value">1178 MHz</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">FP32 Performance:</span>
+              <span class="spec-value">2.4 TFLOPS</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Ray Tracing:</span>
+              <span class="spec-value">N/A</span>
+            </div>
+          </div>
+          
+          <div class="specs-category">
+            <h3>Memória</h3>
+            <div class="spec-item">
+              <span class="spec-label">Tipo:</span>
+              <span class="spec-value">GDDR5</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Capacidade:</span>
+              <span class="spec-value">2GB</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Largura de Banda:</span>
+              <span class="spec-value">128-bit</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Velocidade:</span>
+              <span class="spec-value">7 Gbps</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Largura de Banda:</span>
+              <span class="spec-value">112 GB/s</span>
+            </div>
+          </div>
+          
+          <div class="specs-category">
+            <h3>Configuração</h3>
+            <div class="spec-item">
+              <span class="spec-label">CUDA Cores:</span>
+              <span class="spec-value">1024</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">TMUs:</span>
+              <span class="spec-value">64</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">ROPs:</span>
+              <span class="spec-value">32</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">RT Cores:</span>
+              <span class="spec-value">N/A</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Tensor Cores:</span>
+              <span class="spec-value">N/A</span>
+            </div>
+          </div>
+          
+          <div class="specs-category">
+            <h3>Alimentação</h3>
+            <div class="spec-item">
+              <span class="spec-label">TDP:</span>
+              <span class="spec-value">120W</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Conectores:</span>
+              <span class="spec-value">1x 6-pin</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Recomendação PSU:</span>
+              <span class="spec-value">400W</span>
+            </div>
+          </div>
+          
+          <div class="specs-category">
+            <h3>Conectividade</h3>
+            <div class="spec-item">
+              <span class="spec-label">DisplayPort:</span>
+              <span class="spec-value">1x DP 1.2</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">HDMI:</span>
+              <span class="spec-value">1x HDMI 2.0</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">DVI:</span>
+              <span class="spec-value">2x DVI-D</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">USB-C:</span>
+              <span class="spec-value">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="performance-section">
+        <h2>Performance Relativa</h2>
+        <p>Comparação de performance relativa com outras GPUs. A GTX 960 é usada como referência (100%).</p>
+        
+        <table class="performance-table">
+          <thead>
+            <tr>
+              <th>GPU</th>
+              <th>Performance Relativa</th>
+              <th>Barra de Performance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NVIDIA GeForce GTX 960</strong></td>
+              <td>100%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">100%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>AMD Radeon RX 5700 XT</td>
+              <td>394%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">394%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1080 Ti</td>
+              <td>470%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">470%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1080</td>
+              <td>398%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">398%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1070</td>
+              <td>343%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">343%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1060 6GB</td>
+              <td>241%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">241%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 970</td>
+              <td>163%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">163%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1050 Ti</td>
+              <td>137%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">137%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 1050</td>
+              <td>106%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 100%"></div>
+                  <div class="performance-text">106%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>NVIDIA GeForce GTX 950</td>
+              <td>75%</td>
+              <td style="width: 200px;">
+                <div class="performance-bar">
+                  <div class="performance-fill" style="width: 75%"></div>
+                  <div class="performance-text">75%</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Animação das barras de performance
+    const performanceBars = document.querySelectorAll('.performance-fill');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const width = bar.style.width;
+          bar.style.width = '0%';
+          
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 100);
+        }
+      });
+    });
+    
+    performanceBars.forEach(bar => {
+      observer.observe(bar);
+    });
+  </script>
+</body>
+</html> 

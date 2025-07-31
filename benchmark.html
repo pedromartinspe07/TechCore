@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmark - TechCore</title>
+  <link rel="icon" href="img/favicon.ico" type="image/png">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/benchmark.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+
+  <div class="menu-toggle" id="menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>TechCore Benchmark Suite</h1>
+    
+    <section>
+      <h2>Testes de Performance</h2>
+      <div class="benchmark-grid">
+        <div class="benchmark-card">
+          <h3>CPU Stress Test</h3>
+          <div class="progress-container">
+            <div class="progress-bar" id="cpuProgress">
+              <div class="progress-fill" id="cpuFill"></div>
+            </div>
+            <span class="progress-text" id="cpuText">0%</span>
+          </div>
+          <button class="benchmark-btn" onclick="startCPUBenchmark()">Iniciar Teste</button>
+          <div class="result" id="cpuResult"></div>
+        </div>
+        
+        <div class="benchmark-card">
+          <h3>Memory Bandwidth</h3>
+          <div class="progress-container">
+            <div class="progress-bar" id="memoryProgress">
+              <div class="progress-fill" id="memoryFill"></div>
+            </div>
+            <span class="progress-text" id="memoryText">0%</span>
+          </div>
+          <button class="benchmark-btn" onclick="startMemoryBenchmark()">Iniciar Teste</button>
+          <div class="result" id="memoryResult"></div>
+        </div>
+        
+        <div class="benchmark-card">
+          <h3>GPU Rendering</h3>
+          <div class="progress-container">
+            <div class="progress-bar" id="gpuProgress">
+              <div class="progress-fill" id="gpuFill"></div>
+            </div>
+            <span class="progress-text" id="gpuText">0%</span>
+          </div>
+          <button class="benchmark-btn" onclick="startGPUBenchmark()">Iniciar Teste</button>
+          <div class="result" id="gpuResult"></div>
+        </div>
+        
+        <div class="benchmark-card">
+          <h3>Disk I/O Test</h3>
+          <div class="progress-container">
+            <div class="progress-bar" id="diskProgress">
+              <div class="progress-fill" id="diskFill"></div>
+            </div>
+            <span class="progress-text" id="diskText">0%</span>
+          </div>
+          <button class="benchmark-btn" onclick="startDiskBenchmark()">Iniciar Teste</button>
+          <div class="result" id="diskResult"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Resultados do Sistema</h2>
+      <div class="system-info">
+        <div class="info-row">
+          <span class="label">CPU:</span>
+          <span class="value" id="cpuInfo">Detectando...</span>
+        </div>
+        <div class="info-row">
+          <span class="label">RAM:</span>
+          <span class="value" id="ramInfo">Detectando...</span>
+        </div>
+        <div class="info-row">
+          <span class="label">GPU:</span>
+          <span class="value" id="gpuInfo">Detectando...</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Storage:</span>
+          <span class="value" id="storageInfo">Detectando...</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Comparação com Referência</h2>
+      <div class="comparison-chart">
+        <canvas id="comparisonChart"></canvas>
+      </div>
+    </section>
+
+    <section>
+      <h2>Histórico de Benchmarks</h2>
+      <div class="history-container">
+        <div class="history-item">
+          <span class="date">2025-01-15</span>
+          <span class="score">CPU: 8,450 | GPU: 12,300 | RAM: 6,800</span>
+        </div>
+        <div class="history-item">
+          <span class="date">2025-01-10</span>
+          <span class="score">CPU: 8,200 | GPU: 12,100 | RAM: 6,750</span>
+        </div>
+        <div class="history-item">
+          <span class="date">2025-01-05</span>
+          <span class="score">CPU: 8,100 | GPU: 12,000 | RAM: 6,700</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/benchmark.js"></script>
+  <!-- Script do menu hamburguer -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html> 

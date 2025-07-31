@@ -1,0 +1,16 @@
+body { background: #101010; color: #00ff41; font-family: 'Segoe UI', Arial, sans-serif; }
+.pc-builder-main { max-width: 900px; margin: 40px auto; background: #181818; border-radius: 14px; box-shadow: 0 0 32px #00ff4130; padding: 32px 18px; }
+.pc-builder-main h1 { text-align: center; margin-bottom: 24px; }
+.pc-section { margin-bottom: 36px; }
+.pc-section h2 { margin-bottom: 12px; font-size: 1.2em; color: #00ff41; }
+.pc-list { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+.pc-card { background: #222; border: 2px solid #00ff41; border-radius: 10px; width: 320px; min-height: 110px; padding: 12px 18px; text-align: left; cursor: pointer; transition: border 0.2s, box-shadow 0.2s, background 0.2s; box-shadow: 0 2px 8px #00ff4120; position: relative; display: flex; align-items: center; gap: 18px; }
+.pc-card.selected { border: 2.5px solid #00ff41; background: #193c1e; box-shadow: 0 0 16px #00ff41; }
+.pc-card:hover:not(.selected) { box-shadow: 0 0 12px #00ff4140; border: 2px solid #00ff41; background: #232323; }
+.pc-card img { width: 96px; height: 96px; object-fit: contain; background: #181818; border-radius: 8px; }
+.pc-card .pc-label { font-size: 1.08em; color: #00ff41; font-weight: bold; margin-bottom: 2px; display: block; }
+.pc-card .pc-desc { font-size: 0.95em; color: #bfffc1; margin-bottom: 2px; }
+.pc-next-btn { display: block; margin: 32px auto 0 auto; background: #00ff41; color: #111; font-weight: bold; font-size: 1.1em; border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: background 0.2s; }
+.pc-next-btn:hover { background: #00cc33; color: #fff; }
+.fps-result { margin-top: 32px; background: #222; border-radius: 8px; padding: 20px; text-align: center; font-size: 1.2em; color: #00ff41; box-shadow: 0 0 8px #00ff4140; }
+@media (max-width: 700px) { .pc-builder-main { padding: 8px 2px; } .pc-list { gap: 8px; } .pc-card { width: 98vw; min-width: 0; padding: 8px 4px; } .pc-card img { width: 64px; height: 64px; } }

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPU Specs Database - TechCore</title>
+  <link rel="icon" href="../img/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .gpu-database {
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px solid #00ff41;
+    }
+    
+    .gpu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .gpu-card {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #00ff41;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gpu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+      border-color: #00ff41;
+    }
+    
+    .gpu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .gpu-card:hover::before {
+      left: 100%;
+    }
+    
+    .gpu-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, #1a1a2e, #16213e);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      border: 1px solid #00ff41;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gpu-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .gpu-image.rx5700xt {
+      background-image: url('img/rx5700xt.jpg');
+    }
+    
+    .gpu-image.gtx1050ti {
+      background-image: url('img/gtx1050ti.jpg');
+    }
+    
+    .gpu-image.gtx1050 {
+      background-image: url('img/gtx1050.jpg');
+    }
+    
+    .gpu-image.gtx1080ti {
+      background-image: url('img/gtx1080ti.jpg');
+    }
+    
+    .gpu-image.gtx1080 {
+      background-image: url('img/gtx1080.jpg');
+    }
+    
+    .gpu-image.gtx1070 {
+      background-image: url('img/gtx1070.jpg');
+    }
+    
+    .gpu-image.gtx1060 {
+      background-image: url('img/gtx1060.jpg');
+    }
+    
+    .gpu-image.gtx970 {
+      background-image: url('img/gtx970.jpg');
+    }
+    
+    .gpu-image.gtx960 {
+      background-image: url('img/gtx960.jpg');
+    }
+    
+    .gpu-image.gtx950 {
+      background-image: url('img/gtx950.jpg');
+    }
+    
+    .gpu-image.rx5700 {
+      background-image: url('img/rx5700.jpg');
+    }
+    
+    .gpu-image.rx5600xt {
+      background-image: url('img/rx5600xt.jpg');
+    }
+    
+    .gpu-image.rx5500xt {
+      background-image: url('img/rx5500xt.jpg');
+    }
+    
+    .gpu-image.rx6600xt {
+      background-image: url('img/rx6600xt.jpg');
+    }
+    
+    .gpu-image.rx6600 {
+      background-image: url('img/rx6600.jpg');
+    }
+    
+    .gpu-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ff41;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .gpu-manufacturer {
+      color: #cccccc;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .gpu-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .spec-item {
+      font-size: 0.85rem;
+      color: #cccccc;
+    }
+    
+    .spec-label {
+      color: #00ff41;
+      font-weight: bold;
+    }
+    
+
+    
+    .view-specs-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(45deg, #00ff41, #00cc33);
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .view-specs-btn:hover {
+      background: linear-gradient(45deg, #00cc33, #00ff41);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+    }
+    
+    .search-section {
+      margin-bottom: 2rem;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #00ff41;
+      border-radius: 5px;
+      color: #00ff41;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .search-input::placeholder {
+      color: #666;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #00ff41;
+      color: #00ff41;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-btn.active {
+      background: #00ff41;
+      color: #000;
+    }
+    
+    .filter-btn:hover {
+      background: rgba(0, 255, 65, 0.2);
+    }
+    
+    .breadcrumb {
+      margin-bottom: 2rem;
+      color: #cccccc;
+    }
+    
+    .breadcrumb a {
+      color: #00ff41;
+      text-decoration: none;
+    }
+    
+         .breadcrumb a:hover {
+       text-decoration: underline;
+     }
+     
+     .logo a {
+       text-decoration: none;
+       color: inherit;
+       transition: all 0.3s ease;
+     }
+     
+     .logo a:hover {
+       transform: scale(1.05);
+       text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+     }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../processadores.html">Processadores</a></li>
+        <li><a href="../gpus.html">GPUs</a></li>
+        <li><a href="../memoria.html">Memória</a></li>
+        <li><a href="../terminal.html">Terminal</a></li>
+        <li><a href="../benchmark.html">Benchmark</a></li>
+        <li><a href="../overclock.html">Overclock</a></li>
+        <li><a href="../sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a> &gt; <a href="../gpus.html">GPUs</a> &gt; GPU Specs Database
+    </div>
+    
+    <h1>GPU Specs Database</h1>
+    
+    <div class="gpu-database">
+      <div class="search-section">
+        <input type="text" class="search-input" placeholder="Buscar GPUs..." id="searchInput">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">Todas</button>
+          <button class="filter-btn" data-filter="nvidia">NVIDIA</button>
+          <button class="filter-btn" data-filter="amd">AMD</button>
+          <button class="filter-btn" data-filter="intel">Intel</button>
+        </div>
+      </div>
+      
+      <div class="gpu-grid" id="gpuGrid">
+        <!-- RX 5700 XT -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-5700-xt">
+          <div class="gpu-image rx5700xt"></div>
+          <div class="gpu-name">Radeon RX 5700 XT</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1905 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2019
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-5700-xt.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1050 Ti -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1050-ti">
+          <div class="gpu-image gtx1050ti"></div>
+          <div class="gpu-name">GeForce GTX 1050 Ti</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 4GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1392 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 14nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2016
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1050-ti.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1050 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1050">
+          <div class="gpu-image gtx1050"></div>
+          <div class="gpu-name">GeForce GTX 1050</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 2GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1455 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 14nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2016
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1050.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1080 Ti -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1080-ti">
+          <div class="gpu-image gtx1080ti"></div>
+          <div class="gpu-name">GeForce GTX 1080 Ti</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 11GB GDDR5X
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1582 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 16nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2017
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1080-ti.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1080 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1080">
+          <div class="gpu-image gtx1080"></div>
+          <div class="gpu-name">GeForce GTX 1080</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR5X
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1733 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 16nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2016
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1080.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1070 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1070">
+          <div class="gpu-image gtx1070"></div>
+          <div class="gpu-name">GeForce GTX 1070</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1683 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 16nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2016
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1070.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 1060 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-1060">
+          <div class="gpu-image gtx1060"></div>
+          <div class="gpu-name">GeForce GTX 1060</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 6GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1708 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 16nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2016
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-1060.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 970 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-970">
+          <div class="gpu-image gtx970"></div>
+          <div class="gpu-name">GeForce GTX 970</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 4GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1178 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 28nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2014
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-970.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 960 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-960">
+          <div class="gpu-image gtx960"></div>
+          <div class="gpu-name">GeForce GTX 960</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 2GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1178 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 28nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2015
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-960.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- GTX 950 -->
+        <div class="gpu-card" data-manufacturer="nvidia" data-name="gtx-950">
+          <div class="gpu-image gtx950"></div>
+          <div class="gpu-name">GeForce GTX 950</div>
+          <div class="gpu-manufacturer">NVIDIA</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 2GB GDDR5
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1188 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 28nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2015
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='geforce-gtx-950.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- RX 5700 -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-5700">
+          <div class="gpu-image rx5700"></div>
+          <div class="gpu-name">Radeon RX 5700</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1725 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2019
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-5700.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- RX 5600 XT -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-5600-xt">
+          <div class="gpu-image rx5600xt"></div>
+          <div class="gpu-name">Radeon RX 5600 XT</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 6GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1560 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2020
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-5600-xt.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- RX 5500 XT -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-5500-xt">
+          <div class="gpu-image rx5500xt"></div>
+          <div class="gpu-name">Radeon RX 5500 XT</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 1845 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2019
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-5500-xt.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- RX 6600 XT -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-6600-xt">
+          <div class="gpu-image rx6600xt"></div>
+          <div class="gpu-name">Radeon RX 6600 XT</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 2359 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2021
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-6600-xt.html'">Ver Especificações</button>
+        </div>
+        
+        <!-- RX 6600 -->
+        <div class="gpu-card" data-manufacturer="amd" data-name="rx-6600">
+          <div class="gpu-image rx6600"></div>
+          <div class="gpu-name">Radeon RX 6600</div>
+          <div class="gpu-manufacturer">AMD</div>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <span class="spec-label">Memória:</span> 8GB GDDR6
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Clock:</span> 2044 MHz
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Processo:</span> 7nm
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lançamento:</span> 2021
+            </div>
+          </div>
+<button class="view-specs-btn" onclick="window.location.href='radeon-rx-6600.html'">Ver Especificações</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Funcionalidade de busca e filtros
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const gpuCards = document.querySelectorAll('.gpu-card');
+    
+    // Busca
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      
+      gpuCards.forEach(card => {
+        const gpuName = card.querySelector('.gpu-name').textContent.toLowerCase();
+        const manufacturer = card.querySelector('.gpu-manufacturer').textContent.toLowerCase();
+        
+        if (gpuName.includes(searchTerm) || manufacturer.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+    
+    // Filtros
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        // Atualizar botões ativos
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Aplicar filtro
+        gpuCards.forEach(card => {
+          const manufacturer = card.getAttribute('data-manufacturer');
+          
+          if (filter === 'all' || manufacturer === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Animação das barras de performance
+    const performanceBars = document.querySelectorAll('.performance-fill');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const width = bar.style.width;
+          bar.style.width = '0%';
+          
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 100);
+        }
+      });
+    });
+    
+    performanceBars.forEach(bar => {
+      observer.observe(bar);
+    });
+  </script>
+</body>
+</html> 

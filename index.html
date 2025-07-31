@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechCore - Análise de Processadores</title>
+  <link rel="icon" href="img/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/gpu3d.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Análise de Mercado de Processadores</h1>
+    
+    <section>
+      <h2>Visão Geral do Mercado</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Intel Corporation</h3>
+          <p>Líder histórica no mercado de processadores, a Intel domina principalmente o segmento de servidores e desktops corporativos. Sua arquitetura x86-64 continua sendo o padrão da indústria.</p>
+        </div>
+        <div class="info-card">
+          <h3>AMD (Advanced Micro Devices)</h3>
+          <p>Principal concorrente da Intel, a AMD revolucionou o mercado com sua arquitetura Zen, oferecendo melhor relação custo-benefício e performance competitiva.</p>
+        </div>
+        <div class="info-card">
+          <h3>Apple Silicon</h3>
+          <p>Com a transição para processadores próprios baseados em ARM, a Apple criou chips que combinam eficiência energética com performance excepcional.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Desktops (2004–2025)</h2>
+      <p>Análise da evolução da participação de mercado no segmento de desktops ao longo de duas décadas.</p>
+      <canvas id="desktopChart"></canvas>
+    </section>
+
+    <section>
+      <h2>Laptops (2004–2025)</h2>
+      <p>Análise da evolução da participação de mercado no segmento de laptops, incluindo a recente entrada da Apple com chips próprios.</p>
+      <canvas id="laptopChart"></canvas>
+    </section>
+
+    <section>
+      <h2>Principais Tendências</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Eficiência Energética</h3>
+          <p>Processadores modernos priorizam eficiência energética sem comprometer performance, especialmente importante para dispositivos móveis.</p>
+        </div>
+        <div class="info-card">
+          <h3>Arquitetura ARM</h3>
+          <p>A arquitetura ARM está ganhando espaço no mercado de desktops e laptops, oferecendo melhor eficiência energética.</p>
+        </div>
+        <div class="info-card">
+          <h3>Integração de IA</h3>
+          <p>Processadores modernos incluem unidades de processamento neural para acelerar tarefas de inteligência artificial.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Navegação Rápida</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Processadores</h3>
+          <p>Análise detalhada de diferentes famílias de processadores e suas características técnicas.</p>
+          <a href="processadores.html" class="btn">Ver Mais</a>
+        </div>
+        <div class="info-card">
+          <h3>GPUs</h3>
+          <p>Informações sobre placas de vídeo e processamento gráfico.</p>
+          <a href="gpus.html" class="btn">Ver Mais</a>
+        </div>
+        <div class="info-card">
+          <h3>Memória</h3>
+          <p>Guia sobre diferentes tipos de memória RAM e suas aplicações.</p>
+          <a href="memoria.html" class="btn">Ver Mais</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Modelo 3D - GPU Histórica</h2>
+      <div class="gpu-3d-container">
+        <canvas id="gpu3dCanvas"></canvas>
+        <div class="gpu-info">
+          <h3>NVIDIA GeForce 8800 GT</h3>
+          <p>Uma das GPUs mais icônicas da história, lançada em 2007. Representou um marco na evolução dos gráficos 3D e estabeleceu novos padrões de performance para sua época.</p>
+          <div class="gpu-specs">
+            <div class="spec-item">
+              <strong>Lançamento:</strong> 2007
+            </div>
+            <div class="spec-item">
+              <strong>Processo:</strong> 65nm
+            </div>
+            <div class="spec-item">
+              <strong>Memória:</strong> 512MB GDDR3
+            </div>
+            <div class="spec-item">
+              <strong>Shader Units:</strong> 112
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/webgl-detector.js"></script>
+  <script src="js/gpu3d-config.js"></script>
+  <script src="js/gpu3d.js"></script>
+  <script src="js/gpu3d-controls.js"></script>
+  
+  <script>
+    // Aguardar carregamento completo das dependências
+    window.addEventListener('load', () => {
+      console.log('Verificando dependências...');
+      console.log('Three.js:', typeof THREE !== 'undefined' ? 'OK' : 'FALHOU');
+      console.log('GLTFLoader:', typeof THREE !== 'undefined' && typeof THREE.GLTFLoader !== 'undefined' ? 'OK' : 'FALHOU');
+      
+      // Verificar WebGL primeiro
+      const webglDetector = new WebGLDetector();
+      
+      if (!webglDetector.detect()) {
+        console.error('WebGL não suportado - mostrando alternativas');
+        webglDetector.suggestAlternatives();
+        webglDetector.createErrorInterface();
+        return;
+      }
+      
+      // Aguardar um pouco mais para garantir que tudo esteja carregado
+      setTimeout(() => {
+        if (typeof THREE !== 'undefined' && typeof THREE.GLTFLoader !== 'undefined') {
+          console.log('Inicializando GPU 3D Model...');
+          try {
+            window.gpu3DModel = new GPU3DModel();
+            
+            // Verificar se a inicialização foi bem-sucedida
+            setTimeout(() => {
+              if (window.gpu3DModel && window.gpu3DModel.isInitialized) {
+                console.log('✅ GPU 3D Model inicializado com sucesso');
+              } else {
+                console.warn('⚠️ GPU 3D Model pode não ter inicializado corretamente');
+              }
+            }, 1000);
+            
+          } catch (error) {
+            console.error('Erro ao inicializar GPU 3D Model:', error);
+            showFallbackError();
+          }
+        } else {
+          console.error('Dependências não carregadas corretamente');
+          showFallbackError();
+        }
+      }, 500);
+    });
+
+    function showFallbackError() {
+      const container = document.querySelector('.gpu-3d-container');
+      if (container) {
+        container.innerHTML = `
+          <div class="gpu3d-error">
+            <div class="error-icon">⚠️</div>
+            <div class="error-text">Erro: Three.js ou GLTFLoader não carregados</div>
+            <button class="error-retry" onclick="location.reload()">Tentar Novamente</button>
+          </div>
+        `;
+      }
+    }
+  </script>
+
+  <!-- Script do menu hamburguer -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+  <a href="pc-builder.html" class="pc-builder-fab" title="Monte seu PC">🛠️ Montar PC</a>
+  <style>
+    .pc-builder-fab {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: #00ff41;
+      color: #111;
+      font-weight: bold;
+      font-size: 1.1em;
+      padding: 16px 22px;
+      border-radius: 32px 8px 32px 8px;
+      box-shadow: 0 4px 24px #00ff4140;
+      text-decoration: none;
+      z-index: 9999;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pc-builder-fab:hover {
+      background: #00cc33;
+      color: #fff;
+      box-shadow: 0 2px 16px #00ff4180;
+    }
+    @media (max-width: 600px) {
+      .pc-builder-fab {
+        right: 8px;
+        bottom: 8px;
+        padding: 12px 14px;
+        font-size: 1em;
+      }
+    }
+  </style>
+</body>
+</html>

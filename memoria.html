@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memória RAM - TechCore</title>
+  <link rel="icon" href="img/favicon.ico" type="image/png">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Memória RAM - Guia Completo</h1>
+    
+    <section>
+      <h2>O que é Memória RAM?</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Definição</h3>
+          <p>RAM (Random Access Memory) é a memória principal do computador, onde dados e programas são armazenados temporariamente durante a execução.</p>
+        </div>
+        <div class="info-card">
+          <h3>Características</h3>
+          <p>Memória volátil de alta velocidade que permite acesso aleatório aos dados. Perde informações quando o computador é desligado.</p>
+        </div>
+        <div class="info-card">
+          <h3>Função</h3>
+          <p>Atua como ponte entre o processador e o armazenamento, fornecendo acesso rápido aos dados necessários para execução de programas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tipos de Memória RAM</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>DDR4</h3>
+          <p>Padrão atual mais comum, oferecendo velocidades de 2133 a 3200 MHz. Boa relação custo-benefício e compatibilidade.</p>
+          <ul style="color: #cccccc; margin-top: 1rem;">
+            <li>Velocidade: 2133-3200 MHz</li>
+            <li>Tensão: 1.2V</li>
+            <li>Capacidade: 4-32 GB por módulo</li>
+            <li>Compatibilidade: Intel 6ª-12ª geração</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>DDR5</h3>
+          <p>Última geração com velocidades de 4800 a 7200 MHz. Maior largura de banda e eficiência energética.</p>
+          <ul style="color: #cccccc; margin-top: 1rem;">
+            <li>Velocidade: 4800-7200 MHz</li>
+            <li>Tensão: 1.1V</li>
+            <li>Capacidade: 8-64 GB por módulo</li>
+            <li>Compatibilidade: Intel 12ª+ geração, AMD AM5</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>DDR3</h3>
+          <p>Geração anterior ainda presente em sistemas mais antigos. Velocidades de 800 a 2133 MHz.</p>
+          <ul style="color: #cccccc; margin-top: 1rem;">
+            <li>Velocidade: 800-2133 MHz</li>
+            <li>Tensão: 1.5V</li>
+            <li>Capacidade: 1-16 GB por módulo</li>
+            <li>Compatibilidade: Sistemas antigos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Especificações Técnicas</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Frequência (MHz)</h3>
+          <p>Velocidade de clock da memória, determinando quantos ciclos por segundo ela pode executar. Maior frequência = maior performance.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Exemplo:</strong> DDR4-3200 = 3200 MHz
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Latência (CL)</h3>
+          <p>Tempo de resposta da memória, medido em ciclos de clock. Menor latência = melhor performance.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Exemplo:</strong> CL16 = 16 ciclos de latência
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Largura de Banda</h3>
+          <p>Quantidade de dados que podem ser transferidos por segundo. Calculada como: Frequência × 8 × Número de canais.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Exemplo:</strong> DDR4-3200 dual-channel = 51.2 GB/s
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Configurações de Canal</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Single Channel</h3>
+          <p>Configuração básica com um canal de memória. Performance limitada, mas suficiente para tarefas básicas.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Performance:</strong> 50% da dual-channel
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Dual Channel</h3>
+          <p>Configuração padrão com dois canais de memória. Dobra a largura de banda e melhora significativamente a performance.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Performance:</strong> 100% (padrão)
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Quad Channel</h3>
+          <p>Configuração avançada com quatro canais, disponível em plataformas HEDT e servidores. Máxima largura de banda.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Performance:</strong> 200% da dual-channel
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Capacidade e Uso</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>8 GB</h3>
+          <p>Mínimo recomendado para Windows 10/11. Adequado para navegação web, Office e jogos básicos.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Uso:</strong> Tarefas básicas, jogos leves
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>16 GB</h3>
+          <p>Padrão atual para a maioria dos usuários. Ideal para jogos, edição de vídeo e multitarefa.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Uso:</strong> Jogos, edição, desenvolvimento
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>32 GB</h3>
+          <p>Para usuários avançados e profissionais. Necessário para renderização 3D, VMs e trabalho intensivo.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Uso:</strong> Renderização, VMs, trabalho profissional
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>64 GB+</h3>
+          <p>Para workstations e servidores. Ideal para múltiplas VMs, renderização complexa e análise de dados.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Uso:</strong> Workstations, servidores, análise de dados
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Overclocking de Memória</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>XMP/DOCP</h3>
+          <p>Perfis pré-configurados que permitem overclock automático da memória para velocidades superiores às padrão.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Vantagem:</strong> Overclock seguro e fácil
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Overclock Manual</h3>
+          <p>Ajuste manual de frequência, latência e tensão para maximizar performance. Requer conhecimento técnico.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Risco:</strong> Instabilidade se mal configurado
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Stability Testing</h3>
+          <p>Testes de estabilidade essenciais após overclock para garantir que o sistema funcione corretamente.</p>
+          <div style="margin-top: 1rem; color: #cccccc;">
+            <strong>Ferramentas:</strong> MemTest86, Prime95, AIDA64
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compatibilidade</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Placa-mãe</h3>
+          <p>Verificar suporte ao tipo de memória (DDR4/DDR5), velocidade máxima e número de slots disponíveis.</p>
+        </div>
+        <div class="info-card">
+          <h3>Processador</h3>
+          <p>Controlador de memória integrado determina velocidades suportadas e configuração de canais.</p>
+        </div>
+        <div class="info-card">
+          <h3>Kits Matched</h3>
+          <p>Usar kits de memória testados juntos garante compatibilidade e performance otimizada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Futuro da Memória</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>DDR6</h3>
+          <p>Próxima geração em desenvolvimento, prometendo velocidades superiores a 8000 MHz e maior eficiência.</p>
+        </div>
+        <div class="info-card">
+          <h3>HBM para Desktop</h3>
+          <p>Memória empilhada pode chegar aos desktops, oferecendo largura de banda extremamente alta.</p>
+        </div>
+        <div class="info-card">
+          <h3>Memória Não-Volátil</h3>
+          <p>Desenvolvimento de memória que mantém dados mesmo sem energia, combinando velocidade da RAM com persistência do SSD.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dicas de Otimização</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Configuração Dual Channel</h3>
+          <p>Sempre usar dois módulos idênticos para ativar dual channel e dobrar a largura de banda.</p>
+        </div>
+        <div class="info-card">
+          <h3>Velocidade vs Latência</h3>
+          <p>Equilibrar frequência alta com latência baixa para melhor performance geral.</p>
+        </div>
+        <div class="info-card">
+          <h3>Capacidade Adequada</h3>
+          <p>Evitar usar toda a RAM disponível para permitir cache do sistema e melhor performance.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Navegação</h2>
+      <div style="text-align: center; margin: 2rem 0;">
+        <a href="gpus.html" class="btn">← GPUs</a>
+        <a href="sobre.html" class="btn">Sobre →</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 TechCore - Análise de Hardware. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <!-- Script do menu hamburguer -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html> 
