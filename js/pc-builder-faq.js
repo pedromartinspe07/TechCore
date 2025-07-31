@@ -30,14 +30,6 @@ const faqData = [
       ]
     },
     {
-      key: 'PROCESSADOR',
-      questions: [
-        { q: 'O que é um processador e qual a sua função?', a: 'O processador (CPU) é o cérebro do computador, responsável por executar tarefas e cálculos.' },
-        { q: 'Quais são os tipos de processadores?', a: 'Existem processadores de diferentes núcleos, threads, arquiteturas e soquetes, como Intel e AMD.' },
-        { q: 'Como escolher um processador de PC?', a: 'Considere o uso (jogos, trabalho), compatibilidade com placa-mãe e orçamento.' }
-      ]
-    },
-    {
       key: 'MEMÓRIA RAM',
       questions: [
         { q: 'O que é memória RAM?', a: 'É a memória temporária do computador, usada para armazenar dados de programas em uso.' },
