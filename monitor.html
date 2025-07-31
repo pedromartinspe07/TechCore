@@ -64,6 +64,15 @@
     <button class="monitor-benchmark-btn" onclick="location.href='monitor-benchmark.html'">Ir para Benchmark de Monitor</button>
   </div>
   <script src="js/script.js"></script>
+  <script>
+  const toggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+</script>
   <a href="pc-builder.html" class="pc-builder-fab" title="Monte seu PC">🛠️ Montar PC</a>
   <style>
     .pc-builder-fab {

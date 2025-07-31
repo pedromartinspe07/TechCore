@@ -1,9 +1,10 @@
-// Configuração de tema escuro para Chart.js
+// Tema escuro para Chart.js
 Chart.defaults.color = '#00ff41';
 Chart.defaults.borderColor = '#00ff41';
 Chart.defaults.backgroundColor = 'rgba(0, 255, 65, 0.1)';
 
-const years = Array.from({length: 22}, (_, i) => 2004 + i);
+// Dados dos gráficos
+const years = Array.from({ length: 22 }, (_, i) => 2004 + i);
 
 const desktopData = {
   labels: years,
@@ -79,7 +80,7 @@ const laptopData = {
   ],
 };
 
-// Configurações comuns para os gráficos
+// Opções comuns dos gráficos
 const commonOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -87,11 +88,7 @@ const commonOptions = {
     legend: {
       labels: {
         color: '#00ff41',
-        font: {
-          family: 'Courier New',
-          size: 12,
-          weight: 'bold'
-        },
+        font: { family: 'Courier New', size: 12, weight: 'bold' },
         usePointStyle: true,
         padding: 20
       }
@@ -104,112 +101,120 @@ const commonOptions = {
       borderWidth: 1,
       cornerRadius: 8,
       displayColors: true,
-      titleFont: {
-        family: 'Courier New',
-        size: 14,
-        weight: 'bold'
-      },
-      bodyFont: {
-        family: 'Courier New',
-        size: 12
-      }
+      titleFont: { family: 'Courier New', size: 14, weight: 'bold' },
+      bodyFont: { family: 'Courier New', size: 12 }
     }
   },
   scales: {
     x: {
-      grid: {
-        color: 'rgba(0, 255, 65, 0.2)',
-        borderColor: '#00ff41'
-      },
-      ticks: {
-        color: '#00ff41',
-        font: {
-          family: 'Courier New',
-          size: 11
-        }
-      }
+      grid: { color: 'rgba(0, 255, 65, 0.2)', borderColor: '#00ff41' },
+      ticks: { color: '#00ff41', font: { family: 'Courier New', size: 11 } }
     },
     y: {
-      grid: {
-        color: 'rgba(0, 255, 65, 0.2)',
-        borderColor: '#00ff41'
-      },
+      grid: { color: 'rgba(0, 255, 65, 0.2)', borderColor: '#00ff41' },
       ticks: {
         color: '#00ff41',
-        font: {
-          family: 'Courier New',
-          size: 11
-        },
-        callback: function(value) {
-          return value + '%';
-        }
+        font: { family: 'Courier New', size: 11 },
+        callback: value => value + '%'
       }
     }
   },
-  interaction: {
-    intersect: false,
-    mode: 'index'
-  },
+  interaction: { intersect: false, mode: 'index' },
   elements: {
-    point: {
-      radius: 4,
-      hoverRadius: 6,
-      backgroundColor: '#00ff41'
-    }
+    point: { radius: 4, hoverRadius: 6, backgroundColor: '#00ff41' }
   }
 };
 
-// Criar gráfico de desktop
-new Chart(document.getElementById("desktopChart"), {
-  type: "line",
-  data: desktopData,
-  options: {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: "Participação de Mercado - Processadores para Desktop",
-        color: '#00ff41',
-        font: {
-          family: 'Courier New',
-          size: 16,
-          weight: 'bold'
-        },
-        padding: 20
-      },
-    },
-  },
+// Inicialização dos gráficos (se existirem)
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById("desktopChart")) {
+    new Chart(document.getElementById("desktopChart"), {
+      type: "line",
+      data: desktopData,
+      options: {
+        ...commonOptions,
+        plugins: {
+          ...commonOptions.plugins,
+          title: {
+            display: true,
+            text: "Participação de Mercado - Processadores para Desktop",
+            color: '#00ff41',
+            font: { family: 'Courier New', size: 16, weight: 'bold' },
+            padding: 20
+          }
+        }
+      }
+    });
+  }
+  if (document.getElementById("laptopChart")) {
+    new Chart(document.getElementById("laptopChart"), {
+      type: "line",
+      data: laptopData,
+      options: {
+        ...commonOptions,
+        plugins: {
+          ...commonOptions.plugins,
+          title: {
+            display: true,
+            text: "Participação de Mercado - Processadores para Laptops",
+            color: '#00ff41',
+            font: { family: 'Courier New', size: 16, weight: 'bold' },
+            padding: 20
+          }
+        }
+      }
+    });
+  }
+
+  // Efeito de digitação para títulos
+  const titles = document.querySelectorAll('h1, h2');
+  titles.forEach((title, index) => {
+    const originalText = title.textContent;
+    setTimeout(() => typeWriter(title, originalText, 50), index * 500);
+  });
+
+  // Efeito de hover nos cards
+  document.querySelectorAll('.info-card').forEach(card => {
+    card.addEventListener('mouseenter', function () {
+      this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    card.addEventListener('mouseleave', function () {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+    // Acessibilidade: foco visual
+    card.addEventListener('focus', function () {
+      this.style.boxShadow = '0 0 0 3px #00ff41';
+    });
+    card.addEventListener('blur', function () {
+      this.style.boxShadow = '';
+    });
+  });
+
+  // Scroll suave para links internos
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Menu hamburguer responsivo
+  const toggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  }
 });
 
-// Criar gráfico de laptop
-new Chart(document.getElementById("laptopChart"), {
-  type: "line",
-  data: laptopData,
-  options: {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: "Participação de Mercado - Processadores para Laptops",
-        color: '#00ff41',
-        font: {
-          family: 'Courier New',
-          size: 16,
-          weight: 'bold'
-        },
-        padding: 20
-      },
-    },
-  },
-});
-
-// Efeito de digitação para títulos
+// Função de efeito de digitação
 function typeWriter(element, text, speed = 100) {
   let i = 0;
   element.innerHTML = '';
-  
   function type() {
     if (i < text.length) {
       element.innerHTML += text.charAt(i);
@@ -217,50 +222,5 @@ function typeWriter(element, text, speed = 100) {
       setTimeout(type, speed);
     }
   }
-  
   type();
 }
-
-// Aplicar efeito de digitação aos títulos quando a página carregar
-document.addEventListener('DOMContentLoaded', function() {
-  const titles = document.querySelectorAll('h1, h2');
-  titles.forEach((title, index) => {
-    const originalText = title.textContent;
-    setTimeout(() => {
-      typeWriter(title, originalText, 50);
-    }, index * 500);
-  });
-  
-  // Adicionar efeito de hover nos cards
-  const cards = document.querySelectorAll('.info-card');
-  cards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0) scale(1)';
-    });
-  });
-});
-
-// Animação de scroll suave para links internos
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
-
-const toggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
-
-toggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});

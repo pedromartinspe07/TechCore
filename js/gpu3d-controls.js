@@ -11,7 +11,6 @@ class GPU3DControls {
   }
 
   init() {
-    // Aguardar o modelo 3D estar disponível
     this.waitForGPU3D();
   }
 
@@ -28,12 +27,11 @@ class GPU3DControls {
     // Timeout de segurança
     setTimeout(() => {
       clearInterval(checkInterval);
-      console.warn('GPU 3D Model não encontrado após 10 segundos');
-      
-      // Tentar criar controles mesmo sem o modelo
-      if (document.querySelector('.gpu-3d-container')) {
-        console.log('Criando controles básicos...');
-        this.createBasicControls();
+      if (!this.gpu3D) {
+        console.warn('GPU 3D Model não encontrado após 10 segundos');
+        if (document.querySelector('.gpu-3d-container')) {
+          this.createBasicControls();
+        }
       }
     }, 10000);
   }
@@ -41,19 +39,17 @@ class GPU3DControls {
   createBasicControls() {
     const container = document.querySelector('.gpu-3d-container');
     if (!container) return;
-    // Remover controles antigos se existirem
-    const oldControls = container.querySelector('.gpu3d-controls');
-    if (oldControls) oldControls.remove();
+    this.removeOldControls(container);
 
     const controlsContainer = document.createElement('div');
     controlsContainer.className = 'gpu3d-controls';
     controlsContainer.innerHTML = `
       <div class="controls-header">Controles 3D</div>
       <div class="controls-grid">
-        <button id="reload-model" class="control-btn" title="Recarregar Modelo">
+        <button id="reload-model" class="control-btn" title="Recarregar Modelo" tabindex="0">
           <span class="icon">🔄</span>
         </button>
-        <button id="toggle-lights" class="control-btn active" title="Alternar Luzes">
+        <button id="toggle-lights" class="control-btn active" title="Alternar Luzes" tabindex="0">
           <span class="icon">💡</span>
         </button>
       </div>
@@ -61,38 +57,31 @@ class GPU3DControls {
         <span>Modelo Fallback Ativo</span>
       </div>
     `;
-
     container.appendChild(controlsContainer);
-    
-    // Adicionar event listeners básicos
-    document.getElementById('reload-model')?.addEventListener('click', () => {
-      location.reload();
-    });
+
+    document.getElementById('reload-model')?.addEventListener('click', () => location.reload());
   }
 
   createControls() {
     const container = document.querySelector('.gpu-3d-container');
     if (!container) return;
-    // Remover controles antigos se existirem
-    const oldControls = container.querySelector('.gpu3d-controls');
-    if (oldControls) oldControls.remove();
+    this.removeOldControls(container);
 
-    // Criar container de controles
     this.controlsContainer = document.createElement('div');
     this.controlsContainer.className = 'gpu3d-controls';
     this.controlsContainer.innerHTML = `
       <div class="controls-header">Controles 3D</div>
       <div class="controls-grid">
-        <button id="toggle-rotation" class="control-btn active" title="Alternar Rotação">
+        <button id="toggle-rotation" class="control-btn active" title="Alternar Rotação" tabindex="0">
           <span class="icon">🔄</span>
         </button>
-        <button id="toggle-wobble" class="control-btn active" title="Alternar Oscilação">
+        <button id="toggle-wobble" class="control-btn active" title="Alternar Oscilação" tabindex="0">
           <span class="icon">📈</span>
         </button>
-        <button id="pause-resume" class="control-btn" title="Pausar/Retomar">
+        <button id="pause-resume" class="control-btn" title="Pausar/Retomar" tabindex="0">
           <span class="icon">⏸️</span>
         </button>
-        <button id="reset-view" class="control-btn" title="Resetar Visualização">
+        <button id="reset-view" class="control-btn" title="Resetar Visualização" tabindex="0">
           <span class="icon">🏠</span>
         </button>
       </div>
@@ -104,27 +93,26 @@ class GPU3DControls {
         <span id="fps-display">FPS: --</span>
       </div>
     `;
-
     container.appendChild(this.controlsContainer);
     this.setupEventListeners();
     this.startStatsUpdate();
   }
 
+  removeOldControls(container) {
+    const oldControls = container.querySelector('.gpu3d-controls');
+    if (oldControls) oldControls.remove();
+  }
+
   setupEventListeners() {
-    // Toggle rotação automática
-    document.getElementById('toggle-rotation').addEventListener('click', () => {
+    this.addBtnListener('toggle-rotation', () => {
       this.gpu3D.toggleAutoRotate();
       this.updateButtonState('toggle-rotation', this.gpu3D.controls.autoRotate);
     });
-
-    // Toggle efeito wobble
-    document.getElementById('toggle-wobble').addEventListener('click', () => {
+    this.addBtnListener('toggle-wobble', () => {
       this.gpu3D.toggleWobble();
       this.updateButtonState('toggle-wobble', this.gpu3D.controls.wobble);
     });
-
-    // Pausar/retomar animação
-    document.getElementById('pause-resume').addEventListener('click', () => {
+    this.addBtnListener('pause-resume', () => {
       if (this.gpu3D.animationId) {
         this.gpu3D.pause();
         this.updateButtonState('pause-resume', false);
@@ -133,26 +121,32 @@ class GPU3DControls {
         this.updateButtonState('pause-resume', true);
       }
     });
-
-    // Resetar visualização
-    document.getElementById('reset-view').addEventListener('click', () => {
-      this.resetView();
-    });
+    this.addBtnListener('reset-view', () => this.resetView());
 
     // Controle de velocidade
     const speedSlider = document.getElementById('rotation-speed');
-    speedSlider.addEventListener('input', (e) => {
-      const speed = (e.target.value / 100) * 0.1; // 0 a 0.1
-      this.gpu3D.setRotationSpeed(speed);
-    });
+    if (speedSlider) {
+      speedSlider.addEventListener('input', (e) => {
+        const speed = (e.target.value / 100) * 0.1;
+        this.gpu3D.setRotationSpeed(speed);
+      });
+    }
+  }
+
+  addBtnListener(id, handler) {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', handler);
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') handler();
+      });
+    }
   }
 
   updateButtonState(buttonId, isActive) {
     const button = document.getElementById(buttonId);
     if (button) {
       button.classList.toggle('active', isActive);
-      
-      // Atualizar ícone do botão pause/resume
       if (buttonId === 'pause-resume') {
         const icon = button.querySelector('.icon');
         icon.textContent = isActive ? '⏸️' : '▶️';
@@ -162,24 +156,15 @@ class GPU3DControls {
 
   resetView() {
     if (this.gpu3D && this.gpu3D.gpu) {
-      // Resetar rotação
       this.gpu3D.gpu.rotation.set(0, 0, 0);
       this.gpu3D.gpu.rotation.x = 0;
-      
-      // Resetar posição da câmera
       this.gpu3D.camera.position.set(0, 0.2, this.gpu3D.config.cameraDistance);
       this.gpu3D.camera.lookAt(0, 0, 0);
-      
-      // Reativar animações
       this.gpu3D.controls.autoRotate = true;
       this.gpu3D.controls.wobble = true;
-      
-      // Atualizar botões
       this.updateButtonState('toggle-rotation', true);
       this.updateButtonState('toggle-wobble', true);
       this.updateButtonState('pause-resume', true);
-      
-      // Resetar velocidade
       const speedSlider = document.getElementById('rotation-speed');
       if (speedSlider) {
         speedSlider.value = 50;
@@ -195,8 +180,6 @@ class GPU3DControls {
         const fpsDisplay = document.getElementById('fps-display');
         if (fpsDisplay) {
           fpsDisplay.textContent = `FPS: ${stats.fps}`;
-          
-          // Mudar cor baseado no FPS
           if (stats.fps < 30) {
             fpsDisplay.style.color = '#ff4444';
           } else if (stats.fps < 50) {
@@ -216,26 +199,20 @@ class GPU3DControls {
       this.updateButtonState('pause-resume', false);
     }
   }
-
   resume() {
     if (this.gpu3D) {
       this.gpu3D.resume();
       this.updateButtonState('pause-resume', true);
     }
   }
-
   setSpeed(speed) {
     if (this.gpu3D) {
       const normalizedSpeed = Math.max(0, Math.min(1, speed));
       this.gpu3D.setRotationSpeed(normalizedSpeed * 0.1);
-      
       const speedSlider = document.getElementById('rotation-speed');
-      if (speedSlider) {
-        speedSlider.value = normalizedSpeed * 100;
-      }
+      if (speedSlider) speedSlider.value = normalizedSpeed * 100;
     }
   }
-
   getStats() {
     return this.gpu3D ? this.gpu3D.getStats() : null;
   }
@@ -243,7 +220,6 @@ class GPU3DControls {
 
 // Inicializar controles quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
-  // Aguardar um pouco para garantir que o modelo 3D seja inicializado
   setTimeout(() => {
     window.gpu3DControls = new GPU3DControls();
   }, 500);
@@ -251,28 +227,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exemplo de uso via console
 window.GPU3DExamples = {
-  // Pausar animação
-  pause: () => {
-    if (window.gpu3DControls) window.gpu3DControls.pause();
-  },
-  
-  // Retomar animação
-  resume: () => {
-    if (window.gpu3DControls) window.gpu3DControls.resume();
-  },
-  
-  // Definir velocidade (0-1)
-  setSpeed: (speed) => {
-    if (window.gpu3DControls) window.gpu3DControls.setSpeed(speed);
-  },
-  
-  // Obter estatísticas
-  getStats: () => {
-    if (window.gpu3DControls) return window.gpu3DControls.getStats();
-  },
-  
-  // Resetar visualização
-  reset: () => {
-    if (window.gpu3DControls) window.gpu3DControls.resetView();
-  }
-}; 
+  pause: () => window.gpu3DControls?.pause(),
+  resume: () => window.gpu3DControls?.resume(),
+  setSpeed: (speed) => window.gpu3DControls?.setSpeed(speed),
+  getStats: () => window.gpu3DControls?.getStats(),
+  reset: () => window.gpu3DControls?.resetView()
+};

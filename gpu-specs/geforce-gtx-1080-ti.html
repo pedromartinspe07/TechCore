@@ -283,7 +283,12 @@
           TECH<span class="glitch">CORE</span>
         </a>
       </div>
-      <ul class="nav-links">
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
         <li><a href="../index.html">Home</a></li>
         <li><a href="../processadores.html">Processadores</a></li>
         <li><a href="../gpus.html">GPUs</a></li>
@@ -546,5 +551,14 @@
       observer.observe(bar);
     });
   </script>
+    <script>
+      const toggle = document.getElementById('menu-toggle');
+      const navLinks = document.getElementById('nav-links');
+    
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+    </script>
 </body>
 </html> 
