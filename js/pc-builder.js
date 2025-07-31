@@ -12,10 +12,10 @@ const gpus = [
   { id: 'rx6600', name: 'AMD RX 6600', img: 'img/gpu/rx6600.png' }
 ];
 const motherboards = [
-  { id: 'b450', name: 'ASUS B450M', img: 'img/mb/b450m.png' },
-  { id: 'b550', name: 'Gigabyte B550M', img: 'img/mb/b550m.jpg' },
-  { id: 'h510', name: 'ASRock H510M', img: 'img/mb/h510m.jpg' },
-  { id: 'b660', name: 'MSI B660M', img: 'img/mb/b660m.png' }
+  { id: 'b450', name: 'ASUS B450M', img: 'img/mb/b450m.png', socket: 'am4' },
+  { id: 'b550', name: 'Gigabyte B550M', img: 'img/mb/b550m.jpg', socket: 'am4' },
+  { id: 'h510', name: 'ASRock H510M', img: 'img/mb/h510m.jpg', socket: 'lga1700' },
+  { id: 'b660', name: 'MSI B660M', img: 'img/mb/b660m.png', socket: 'lga1700' }
 ];
 const rams = [
   { id: '8gb', name: '8GB DDR4 3200MHz', img: 'img/ram/8gb.png' },
@@ -39,16 +39,40 @@ const steps = [
 let selections = {};
 let currentStep = 0;
 
+function getCompatibleMotherboards(cpuId) {
+  if (cpuId === 'r5-5500' || cpuId === 'r5-5600') {
+    return motherboards.filter(mb => mb.socket === 'am4');
+  } else if (cpuId === 'i5-10400f' || cpuId === 'i5-12400f') {
+    return motherboards.filter(mb => mb.socket === 'lga1700');
+  }
+  return [];
+}
+
 function renderStep() {
   const step = steps[currentStep];
+  let list = step.list;
+
+  // Filtrar placas-mãe conforme o processador escolhido
+  if (step.key === 'motherboard') {
+    const cpu = selections.cpu;
+    if (!cpu) {
+      showWarning('Escolha um processador antes de selecionar a placa-mãe.');
+      return;
+    }
+    list = getCompatibleMotherboards(cpu);
+    // Resetar seleção se incompatível
+    if (selections.motherboard && !list.some(mb => mb.id === selections.motherboard)) {
+      selections.motherboard = null;
+    }
+  }
+
   const main = document.getElementById('pc-builder-main');
   main.innerHTML = `
-    <h1>Monte seu PC</h1>
     <div class="pc-section">
       <h2>Escolha o(a) ${step.label}:</h2>
       <div class="pc-list">
-        ${step.list.map(item => `
-          <div class="pc-card${selections[step.key] === item.id ? ' selected' : ''}" data-id="${item.id}">
+        ${list.map(item => `
+          <div class="pc-card${selections[step.key] === item.id ? ' selected' : ''}" data-id="${item.id}" tabindex="0" role="button" aria-pressed="${selections[step.key] === item.id}">
             <img src="${item.img}" alt="${item.name}" />
             <div>
               <span class="pc-type" style="color:#bfffc1; font-size:0.98em;">${step.label}</span><br>
@@ -60,12 +84,21 @@ function renderStep() {
       <button class="pc-next-btn" ${selections[step.key] ? '' : 'disabled'}>${currentStep < steps.length - 1 ? 'Próximo' : 'Finalizar'}</button>
     </div>
   `;
+
+  // Seleção por clique e teclado
   document.querySelectorAll('.pc-card').forEach(card => {
     card.onclick = () => {
       selections[step.key] = card.getAttribute('data-id');
       renderStep();
     };
+    card.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        selections[step.key] = card.getAttribute('data-id');
+        renderStep();
+      }
+    };
   });
+
   document.querySelector('.pc-next-btn').onclick = () => {
     if (currentStep < steps.length - 1) {
       currentStep++;
@@ -74,6 +107,18 @@ function renderStep() {
       showFPSResult();
     }
   };
+}
+
+function showWarning(msg) {
+  const main = document.getElementById('pc-builder-main');
+  main.innerHTML = `
+    <div class="pc-section">
+      <div class="fps-result" style="color:#ff4444; background:#181818; margin-bottom:24px;">
+        ${msg}
+      </div>
+      <button class="pc-next-btn" onclick="location.reload()">Voltar ao início</button>
+    </div>
+  `;
 }
 
 function showFPSResult() {
@@ -92,13 +137,13 @@ function showFPSResult() {
   if (storage === 'nvme') baseFps *= 1.05;
   if (storage === 'hdd') baseFps *= 0.95;
   const games = [
-    { name: 'CS:GO', factor: 1.0 },
+    { name: 'CS2', factor: 1.0 },
     { name: 'GTA V', factor: 0.8 },
     { name: 'Fortnite', factor: 0.9 },
     { name: 'Cyberpunk 2077', factor: 0.45 },
     { name: 'Valorant', factor: 1.1 }
   ];
-  let html = `<h1>Resultado</h1><div class="fps-result"><b>Estimativa de FPS em jogos populares:</b><br><ul style="margin:12px 0 0 0; padding:0; list-style:none;">`;
+  let html = `<h1>Resultado</h1><div class="fps-result"><b>Estimativa de FPS em jogos:</b><br><ul style="margin:12px 0 0 0; padding:0; list-style:none;">`;
   games.forEach(g => {
     const fps = Math.round(baseFps * g.factor);
     html += `<li><b>${g.name}:</b> ${fps} FPS</li>`;
