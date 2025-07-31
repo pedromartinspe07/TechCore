@@ -1,0 +1,119 @@
+body {
+    background: #101010;
+    color: #00ff41;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .monitor-container, .monitor-bench-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #181818 80%, #003c1b 100%);
+    border-radius: 18px;
+    box-shadow: 0 0 40px #00ff4140, 0 2px 24px #000a;
+    padding: 40px 24px 32px 24px;
+  }
+  
+  .monitor-container h1, .monitor-bench-container h1 {
+    text-align: center;
+    margin-bottom: 28px;
+    color: #00ff41;
+    font-size: 2.2em;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #00ff41, 0 0 32px #00ff41;
+  }
+  
+  .monitor-container h2, .monitor-bench-container h2 {
+    color: #bfffc1;
+    margin-top: 36px;
+    margin-bottom: 12px;
+    font-size: 1.25em;
+    text-shadow: 0 0 4px #00ff41;
+  }
+  
+  .monitor-container ul, .monitor-bench-container ul {
+    margin-left: 22px;
+    margin-bottom: 20px;
+    font-size: 1.08em;
+  }
+  
+  .monitor-container p, .monitor-bench-container p {
+    margin-bottom: 16px;
+    color: #bfffc1;
+    font-size: 1.08em;
+  }
+  
+  .monitor-benchmark-btn, .monitor-bench-btn {
+    display: block;
+    margin: 48px auto 0 auto;
+    background: linear-gradient(90deg, #00ff41 60%, #00b82e 100%);
+    color: #181818;
+    font-weight: bold;
+    font-size: 1.18em;
+    border: none;
+    border-radius: 14px;
+    padding: 18px 44px;
+    cursor: pointer;
+    box-shadow: 0 0 24px #00ff41, 0 2px 8px #00ff4140;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+    text-shadow: 0 0 8px #00ff41;
+    letter-spacing: 1px;
+  }
+  .monitor-benchmark-btn:hover, .monitor-bench-btn:hover {
+    background: linear-gradient(90deg, #00ff41 80%, #00b82e 100%);
+    color: #fff;
+    box-shadow: 0 0 40px #00ff41, 0 2px 16px #00ff4140;
+    transform: scale(1.04);
+  }
+  
+  .fps-tester {
+    margin: 32px auto 0 auto;
+    background: #222;
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 0 16px #00ff4140;
+    max-width: 440px;
+  }
+  
+  .fps-tester-canvas {
+    background: #111;
+    border-radius: 10px;
+    margin: 0 auto 14px auto;
+    display: block;
+    box-shadow: 0 0 12px #00ff4140;
+  }
+  
+  .panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 28px;
+    font-size: 1.08em;
+    box-shadow: 0 0 12px #00ff4140;
+  }
+  .panel-table th, .panel-table td {
+    border: 1.5px solid #00ff41;
+    padding: 12px 10px;
+    text-align: left;
+  }
+  .panel-table th {
+    background: #232323;
+    color: #00ff41;
+    font-size: 1.1em;
+    text-shadow: 0 0 4px #00ff41;
+  }
+  .panel-table td {
+    background: #181818;
+    color: #bfffc1;
+  }
+  
+  @media (max-width: 900px) {
+    .monitor-container, .monitor-bench-container { padding: 16px 2vw; }
+    .panel-table th, .panel-table td { padding: 8px 4px; }
+  }
+  
+  @media (max-width: 600px) {
+    .monitor-container, .monitor-bench-container { padding: 6px 0; }
+    .monitor-container h1, .monitor-bench-container h1 { font-size: 1.3em; }
+    .monitor-container h2, .monitor-bench-container h2 { font-size: 1em; }
+    .panel-table { font-size: 0.98em; }
+  }

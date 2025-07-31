@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmark de Monitor - TechCore</title>
+  <link rel="icon" href="img/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/monitor.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="monitor.html">Monitores</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="monitor-bench-container">
+    <h1>Benchmark de Monitor</h1>
+    <p>Teste a taxa de atualização do seu monitor e entenda as diferenças entre os principais tipos de painel LCD.</p>
+    <h2>O que é taxa de atualização?</h2>
+    <p>A taxa de atualização (Hz) indica quantas vezes por segundo a imagem do monitor é atualizada. Monitores gamers modernos vão de 75Hz até 240Hz ou mais.</p>
+    <div class="fps-tester">
+      <canvas id="fpsCanvas" width="340" height="60" class="fps-tester-canvas"></canvas>
+      <div id="fpsResult" style="margin-top:8px; color:#00ff41; font-weight:bold;"></div>
+      <button onclick="startFPSTest()" class="monitor-bench-btn" style="margin:18px auto 0 auto; padding:10px 28px; font-size:1em;">Testar Taxa de Atualização</button>
+    </div>
+    <h2>Diferenças entre painéis LCD</h2>
+    <table class="panel-table">
+      <tr><th>Painel</th><th>Vantagens</th><th>Desvantagens</th></tr>
+      <tr><td>TN</td><td>Resposta rápida, preço baixo</td><td>Cores e ângulos de visão limitados</td></tr>
+      <tr><td>IPS</td><td>Cores vivas, ótimos ângulos de visão</td><td>Preço mais alto, contraste menor que VA</td></tr>
+      <tr><td>VA</td><td>Alto contraste, pretos profundos</td><td>Tempo de resposta maior, ghosting em alguns modelos</td></tr>
+    </table>
+    <button class="monitor-bench-btn" onclick="location.href='monitor.html'" style="margin-top:40px;">Voltar para Guia de Monitores</button>
+  </div>
+  <script src="js/monitor-benchmark.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

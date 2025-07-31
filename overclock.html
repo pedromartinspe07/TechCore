@@ -29,6 +29,7 @@
         <li><a href="terminal.html">Terminal</a></li>
         <li><a href="benchmark.html">Benchmark</a></li>
         <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="monitor.html">Monitores</a></li>
         <li><a href="sobre.html">Sobre</a></li>
         </ul>
     </nav>
@@ -213,5 +214,41 @@
       navLinks.classList.toggle('active');
     });
   </script>
+<a href="pc-builder.html" class="pc-builder-fab" title="Monte seu PC">🛠️ Montar PC</a>
+<style>
+  .pc-builder-fab {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background: #00ff41;
+    color: #111;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 16px 22px;
+    border-radius: 32px 8px 32px 8px;
+    box-shadow: 0 4px 24px #00ff4140;
+    text-decoration: none;
+    z-index: 9999;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pc-builder-fab:hover {
+    background: #00cc33;
+    color: #fff;
+    box-shadow: 0 2px 16px #00ff4180;
+  }
+  @media (max-width: 600px) {
+    .pc-builder-fab {
+      right: 8px;
+      bottom: 8px;
+      padding: 12px 14px;
+      font-size: 1em;
+    }
+  }
+</style>
 </body>
 </html> 
