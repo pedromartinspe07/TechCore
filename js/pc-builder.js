@@ -140,7 +140,7 @@ function showFPSResult() {
   if (storage === 'nvme') baseFps *= 1.05;
   if (storage === 'hdd') baseFps *= 0.95;
   const games = [
-    { name: 'CS:GO', factor: 1.0 },
+    { name: 'CS2', factor: 1.0 },
     { name: 'GTA V', factor: 0.8 },
     { name: 'Fortnite', factor: 0.9 },
     { name: 'Cyberpunk 2077', factor: 0.45 },
