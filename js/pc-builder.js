@@ -50,7 +50,7 @@ function getCompatibleMotherboards(cpuId) {
 
 function renderStep() {
   const step = steps[currentStep];
-  let list = step.list;
+  let list = filterList(step.list);
 
   // Filtrar placas-mãe conforme o processador escolhido
   if (step.key === 'motherboard') {
@@ -122,6 +122,9 @@ function showWarning(msg) {
 }
 
 function showFPSResult() {
+  // Esconde a barra de pesquisa/tabs
+  const bar = document.querySelector('.pc-builder-bar');
+  if (bar) bar.style.display = 'none';
   // Simulação simples baseada em combinações
   const cpu = selections.cpu;
   const gpu = selections.gpu;
@@ -137,7 +140,7 @@ function showFPSResult() {
   if (storage === 'nvme') baseFps *= 1.05;
   if (storage === 'hdd') baseFps *= 0.95;
   const games = [
-    { name: 'CS2', factor: 1.0 },
+    { name: 'CS:GO', factor: 1.0 },
     { name: 'GTA V', factor: 0.8 },
     { name: 'Fortnite', factor: 0.9 },
     { name: 'Cyberpunk 2077', factor: 0.45 },
@@ -153,4 +156,57 @@ function showFPSResult() {
   document.getElementById('pc-builder-main').innerHTML = html;
 }
 
-document.addEventListener('DOMContentLoaded', renderStep);
+document.addEventListener('DOMContentLoaded', () => {
+  const bar = document.querySelector('.pc-builder-bar');
+  if (bar) bar.style.display = '';
+  renderStep();
+});
+
+const tabIcons = {
+  cpu: '🖥️',
+  gpu: '🎮',
+  motherboard: '🧩',
+  ram: '💾',
+  storage: '🗄️'
+};
+
+let currentTab = 'cpu';
+let searchTerm = '';
+
+function renderTabs() {
+  const tabs = [
+    { key: 'cpu', label: 'Processador' },
+    { key: 'gpu', label: 'Placa de Vídeo' },
+    { key: 'motherboard', label: 'Placa-mãe' },
+    { key: 'ram', label: 'Memória RAM' },
+    { key: 'storage', label: 'Armazenamento' }
+  ];
+  document.getElementById('pcBuilderTabs').innerHTML = tabs.map(tab =>
+    `<button class="pc-tab-btn${currentTab === tab.key ? ' active' : ''}" data-tab="${tab.key}">
+      <span>${tabIcons[tab.key]}</span> ${tab.label}
+    </button>`
+  ).join('');
+  document.querySelectorAll('.pc-tab-btn').forEach(btn => {
+    btn.onclick = () => {
+      currentTab = btn.dataset.tab;
+      currentStep = tabs.findIndex(t => t.key === currentTab);
+      renderStep();
+      renderTabs();
+    };
+  });
+}
+
+function filterList(list) {
+  if (!searchTerm.trim()) return list;
+  return list.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+  );
+}
+document.getElementById('pcBuilderSearch').addEventListener('input', e => {
+  searchTerm = e.target.value;
+  renderStep();
+});
+document.getElementById('pcBuilderSearchBtn').onclick = () => {
+  searchTerm = document.getElementById('pcBuilderSearch').value;
+  renderStep();renderTabs();
+};
