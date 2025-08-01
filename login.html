@@ -1,13 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - TechCore</title>
-  <link rel="icon" href="img/favicon.ico" type="image/ico">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 80px;
+      text-shadow: 0 0 5px #00ff00;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 30px;
+      border: 1px solid #00ff00;
+      border-radius: 10px;
+      background-color: #111;
+      box-shadow: 0 0 10px #00ff00aa;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #00ff00;
+      background-color: #000;
+      color: #00ff00;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: transparent;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00ff00;
+      color: #000;
+    }
+
+    @media (max-width: 500px) {
+      form {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <header>
     <nav>
       <div class="logo">
@@ -30,24 +96,27 @@
         <li><a href="overclock.html">Overclock</a></li>
         <li><a href="monitor.html">Monitores</a></li>
         <li><a href="noticias.html">Notícias</a></li>
-        <li><a href="login.html" id="login-btn">Login</a></li>
+        <li><a href="login.html" class="active">Login</a></li>
         <li><a href="sobre.html">Sobre</a></li>
-        </ul>
+      </ul>
     </nav>
-  </header> 
+  </header>
+
+  <!-- Login Form -->
   <h2>Login do Jornalista</h2>
   <form id="loginForm">
     <label for="username">Usuário:</label>
-    <input type="text" id="username" name="username" required>
-    
+    <input type="text" id="username" name="username" required />
+
     <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required>
-    
+    <input type="password" id="password" name="password" required />
+
     <button type="submit">Entrar</button>
   </form>
 
+  <!-- Script de autenticação -->
   <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const username = document.getElementById('username').value;
@@ -65,7 +134,7 @@
           localStorage.setItem('token', result.token);
           window.location.href = 'noticias.html';
         } else {
-          alert('Login falhou: ' + result.message);
+          alert('Login falhou: ' + (result.message || 'Credenciais inválidas.'));
         }
       } catch (error) {
         alert('Erro ao conectar ao servidor: ' + error.message);

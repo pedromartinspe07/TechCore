@@ -1,13 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notícias - TechCore</title>
-  <link rel="icon" href="img/favicon.ico" type="image/ico">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      text-shadow: 0 0 5px #0f0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 80px auto 40px;
+      padding: 20px;
+    }
+
+    #news-container {
+      border: 1px solid #0f0;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #111;
+      box-shadow: 0 0 10px #00ff00aa;
+    }
+
+    #news-container div {
+      margin-bottom: 30px;
+      border-bottom: 1px dashed #0f0;
+      padding-bottom: 10px;
+    }
+
+    #news-container h3 {
+      color: #00ff88;
+      margin-bottom: 5px;
+    }
+
+    #noticia {
+      margin-top: 50px;
+      border-top: 2px solid #0f0;
+      padding-top: 20px;
+    }
+
+    form {
+      text-align: center;
+    }
+
+    input[type="text"], textarea {
+      width: 90%;
+      padding: 10px;
+      background-color: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-family: inherit;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0f0;
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+      input, textarea {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navegação -->
   <header>
     <nav>
       <div class="logo">
@@ -29,26 +115,30 @@
         <li><a href="benchmark.html">Benchmark</a></li>
         <li><a href="overclock.html">Overclock</a></li>
         <li><a href="monitor.html">Monitores</a></li>
-        <li><a href="noticias.html">Notícias</a></li>
-        <li><a href="login.html" id="login-btn">Login</a></li>
+        <li><a href="noticias.html" class="active">Notícias</a></li>
+        <li><a href="login.html">Login</a></li>
         <li><a href="sobre.html">Sobre</a></li>
-        </ul>
+      </ul>
     </nav>
   </header>
 
+  <!-- Conteúdo principal -->
   <div class="container">
     <h1>Notícias TechCore</h1>
     <div id="news-container"></div>
   </div>
 
-  <div id="noticia" style="display: none;">
+  <!-- Formulário para novas notícias (somente após login) -->
+  <div class="container" id="noticia" style="display: none;">
     <h2>Nova Notícia</h2>
     <form id="noticia-form">
-      <input type="text" id="title" placeholder="Título da Notícia" required><br>
-      <textarea id="content" placeholder="Conteúdo..." rows="5" required></textarea><br>
+      <input type="text" id="title" placeholder="Título da Notícia" required /><br />
+      <textarea id="content" placeholder="Conteúdo..." rows="5" required></textarea><br />
       <button type="submit">Publicar</button>
     </form>
   </div>
+
+  <!-- Scripts -->
   <script>
     async function carregarNoticias() {
       const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
@@ -57,9 +147,9 @@
       const container = document.getElementById('news-container');
       container.innerHTML = '';
 
-      noticias.forEach(n => {
+      noticias.reverse().forEach(n => {
         const div = document.createElement('div');
-        div.innerHTML = `<h3>${n.titulo}</h3><p>${n.conteudo}</p><hr>`;
+        div.innerHTML = `<h3>${n.titulo}</h3><p>${n.conteudo}</p>`;
         container.appendChild(div);
       });
     }
@@ -71,7 +161,7 @@
       }
     }
 
-    document.getElementById('noticia-form')?.addEventListener('submit', async function(e) {
+    document.getElementById('noticia-form')?.addEventListener('submit', async function (e) {
       e.preventDefault();
       const token = localStorage.getItem('token');
       const titulo = document.getElementById('title').value;
@@ -89,6 +179,7 @@
       if (res.ok) {
         alert('Notícia publicada com sucesso!');
         carregarNoticias();
+        document.getElementById('noticia-form').reset();
       } else {
         alert('Erro ao publicar notícia');
       }
