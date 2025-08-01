@@ -9,9 +9,9 @@
   <h1>Notícias TechCore</h1>
   <div id="news-container"></div>
 
-  <div id="post-form" style="display: none;">
+  <div id="noticia" style="display: none;">
     <h2>Nova Notícia</h2>
-    <form id="newsForm">
+    <form id="noticia-form">
       <input type="text" id="title" placeholder="Título da Notícia" required><br>
       <textarea id="content" placeholder="Conteúdo..." rows="5" required></textarea><br>
       <button type="submit">Publicar</button>
@@ -20,7 +20,7 @@
 
   <script>
     async function carregarNoticias() {
-      const res = await fetch('https://seu-backend.railway.app/api/noticias');
+      const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
       const noticias = await res.json();
 
       const container = document.getElementById('news-container');
@@ -36,17 +36,17 @@
     async function verificarLogin() {
       const token = localStorage.getItem('token');
       if (token) {
-        document.getElementById('post-form').style.display = 'block';
+        document.getElementById('noticia').style.display = 'block';
       }
     }
 
-    document.getElementById('newsForm')?.addEventListener('submit', async function(e) {
+    document.getElementById('noticia-form')?.addEventListener('submit', async function(e) {
       e.preventDefault();
       const token = localStorage.getItem('token');
       const titulo = document.getElementById('title').value;
       const conteudo = document.getElementById('content').value;
 
-      const res = await fetch('https://seu-backend.railway.app/api/noticias', {
+      const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
