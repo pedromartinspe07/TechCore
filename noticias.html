@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notícias - TechCore</title>
   <link rel="icon" href="img/favicon.ico" type="image/ico">
   <link rel="stylesheet" href="css/style.css" />
@@ -35,8 +36,9 @@
     </nav>
   </header>
 
-  <h1>Notícias TechCore</h1>
-  <div id="news-container"></div>
+  <div class="container">
+    <h1>Notícias TechCore</h1>
+  </div>
 
   <div id="noticia" style="display: none;">
     <h2>Nova Notícia</h2>
@@ -46,7 +48,6 @@
       <button type="submit">Publicar</button>
     </form>
   </div>
-
   <script>
     async function carregarNoticias() {
       const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
