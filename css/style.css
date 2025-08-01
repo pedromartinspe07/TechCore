@@ -30,8 +30,9 @@ nav {
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* alinha itens à esquerda */
   align-items: center;
+  gap: 3rem; /* espaçamento entre logo e nav-links */
 }
 
 .logo {
