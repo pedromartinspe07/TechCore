@@ -26,13 +26,13 @@ header {
 }
 
 nav {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: flex-start; /* alinha itens à esquerda */
+  justify-content: flex-start;
   align-items: center;
-  gap: 3rem; /* espaçamento entre logo e nav-links */
+  flex-wrap: wrap; /* Permite quebrar linha se necessário */
+  gap: 2rem; /* Reduza esse valor se os itens estiverem espremidos */
 }
 
 .logo {
@@ -57,8 +57,10 @@ nav {
 
 .nav-links {
   display: flex;
+  flex-wrap: wrap; /* Ajuda se faltar espaço */
   list-style: none;
-  gap: 2rem;
+  gap: 1.5rem;
+  margin-left: auto; /* opcional para alinhamento à direita */
 }
 
 .nav-links a {
