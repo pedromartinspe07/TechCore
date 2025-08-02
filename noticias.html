@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notícias - TechCore</title>
   <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/style.css" />
@@ -34,7 +34,7 @@
       box-shadow: 0 0 10px #00ff00aa;
     }
 
-    #news-container div {
+    #news-container > div {
       margin-bottom: 30px;
       border-bottom: 1px dashed #0f0;
       padding-bottom: 10px;
@@ -43,6 +43,12 @@
     #news-container h3 {
       color: #00ff88;
       margin-bottom: 5px;
+      word-break: break-word;
+    }
+
+    #news-container p {
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     #noticia {
@@ -64,6 +70,7 @@
       border-radius: 5px;
       margin-bottom: 15px;
       font-family: inherit;
+      resize: vertical;
     }
 
     button {
@@ -76,9 +83,23 @@
       transition: 0.3s;
     }
 
-    button:hover {
+    button:hover:enabled {
       background-color: #0f0;
       color: #000;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #message {
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+      min-height: 1.2em;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0;
     }
 
     @media (max-width: 600px) {
@@ -125,68 +146,124 @@
   <!-- Conteúdo principal -->
   <div class="container">
     <h1>Notícias TechCore</h1>
-    <div id="news-container"></div>
+    <div id="message"></div>
+    <div id="news-container" aria-live="polite" aria-atomic="true"></div>
   </div>
 
   <!-- Formulário para novas notícias (somente após login) -->
   <div class="container" id="noticia" style="display: none;">
     <h2>Nova Notícia</h2>
-    <form id="noticia-form">
-      <input type="text" id="title" placeholder="Título da Notícia" required /><br />
-      <textarea id="content" placeholder="Conteúdo..." rows="5" required></textarea><br />
-      <button type="submit">Publicar</button>
+    <form id="noticia-form" novalidate>
+      <input type="text" id="title" name="title" placeholder="Título da Notícia" required minlength="5" maxlength="100" aria-label="Título da notícia" /><br />
+      <textarea id="content" name="content" placeholder="Conteúdo..." rows="5" required minlength="10" aria-label="Conteúdo da notícia"></textarea><br />
+      <button type="submit" id="submit-btn">Publicar</button>
     </form>
   </div>
 
   <!-- Scripts -->
   <script>
-    async function carregarNoticias() {
-      const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
-      const noticias = await res.json();
+    const messageEl = document.getElementById('message');
+    const newsContainer = document.getElementById('news-container');
+    const noticiaForm = document.getElementById('noticia-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const noticiaSection = document.getElementById('noticia');
 
-      const container = document.getElementById('news-container');
-      container.innerHTML = '';
-
-      noticias.reverse().forEach(n => {
-        const div = document.createElement('div');
-        div.innerHTML = `<h3>${n.titulo}</h3><p>${n.conteudo}</p>`;
-        container.appendChild(div);
-      });
+    function sanitizeHTML(str) {
+      const temp = document.createElement('div');
+      temp.textContent = str;
+      return temp.innerHTML;
     }
 
-    async function verificarLogin() {
-      const token = localStorage.getItem('token');
-      if (token) {
-        document.getElementById('noticia').style.display = 'block';
+    async function carregarNoticias() {
+      messageEl.textContent = 'Carregando notícias...';
+      try {
+        const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
+        if (!res.ok) throw new Error('Erro ao buscar notícias');
+        const noticias = await res.json();
+
+        newsContainer.innerHTML = '';
+
+        noticias.reverse().forEach(n => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <h3>${sanitizeHTML(n.titulo)}</h3>
+            <p>${sanitizeHTML(n.conteudo)}</p>
+          `;
+          newsContainer.appendChild(div);
+        });
+
+        messageEl.textContent = noticias.length === 0 ? 'Nenhuma notícia encontrada.' : '';
+      } catch (err) {
+        messageEl.style.color = 'red';
+        messageEl.textContent = 'Erro ao carregar notícias. Tente novamente mais tarde.';
+        console.error(err);
       }
     }
 
-    document.getElementById('noticia-form')?.addEventListener('submit', async function (e) {
-      e.preventDefault();
+    function tokenValido(token) {
+      if (!token) return false;
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const now = Math.floor(Date.now() / 1000);
+        return payload.exp && payload.exp > now;
+      } catch {
+        return false;
+      }
+    }
+
+    function mostrarFormularioSeLogado() {
       const token = localStorage.getItem('token');
-      const titulo = document.getElementById('title').value;
-      const conteudo = document.getElementById('content').value;
-
-      const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({ titulo, conteudo })
-      });
-
-      if (res.ok) {
-        alert('Notícia publicada com sucesso!');
-        carregarNoticias();
-        document.getElementById('noticia-form').reset();
+      if (token && tokenValido(token)) {
+        noticiaSection.style.display = 'block';
       } else {
-        alert('Erro ao publicar notícia');
+        noticiaSection.style.display = 'none';
+      }
+    }
+
+    noticiaForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      messageEl.style.color = '#0f0';
+      messageEl.textContent = 'Publicando notícia...';
+
+      const token = localStorage.getItem('token');
+      const titulo = noticiaForm.title.value.trim();
+      const conteudo = noticiaForm.content.value.trim();
+
+      try {
+        const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ titulo, conteudo })
+        });
+
+        if (res.ok) {
+          messageEl.style.color = '#0f0';
+          messageEl.textContent = 'Notícia publicada com sucesso!';
+          noticiaForm.reset();
+          carregarNoticias();
+        } else if (res.status === 401 || res.status === 403) {
+          messageEl.style.color = 'red';
+          messageEl.textContent = 'Você não tem permissão para publicar notícias. Faça login novamente.';
+          localStorage.removeItem('token');
+          mostrarFormularioSeLogado();
+        } else {
+          throw new Error('Erro ao publicar notícia');
+        }
+      } catch (err) {
+        messageEl.style.color = 'red';
+        messageEl.textContent = 'Erro ao publicar notícia. Tente novamente.';
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false;
       }
     });
 
     carregarNoticias();
-    verificarLogin();
+    mostrarFormularioSeLogado();
   </script>
 </body>
 </html>
