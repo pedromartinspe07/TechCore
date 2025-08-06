@@ -153,7 +153,7 @@
   <!-- Formulário para novas notícias (somente após login) -->
   <div class="container" id="noticia" style="display: none;">
     <h2>Nova Notícia</h2>
-    <form id="noticia-form" novalidate>
+    <form id="noticia-form">
       <input type="text" id="title" name="title" placeholder="Título da Notícia" required minlength="5" maxlength="100" aria-label="Título da notícia" /><br />
       <textarea id="content" name="content" placeholder="Conteúdo..." rows="5" required minlength="10" aria-label="Conteúdo da notícia"></textarea><br />
       <button type="submit" id="submit-btn">Publicar</button>
@@ -175,6 +175,7 @@
     }
 
     async function carregarNoticias() {
+      messageEl.style.color = '#0f0';
       messageEl.textContent = 'Carregando notícias...';
       try {
         const res = await fetch('https://techcore-backend-production.up.railway.app/api/noticias');
@@ -220,8 +221,15 @@
       }
     }
 
-    noticiaForm?.addEventListener('submit', async (e) => {
+    noticiaForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Se o form for inválido, não enviar
+      if (!noticiaForm.checkValidity()) {
+        noticiaForm.reportValidity();
+        return;
+      }
+
       submitBtn.disabled = true;
       messageEl.style.color = '#0f0';
       messageEl.textContent = 'Publicando notícia...';
@@ -244,7 +252,7 @@
           messageEl.style.color = '#0f0';
           messageEl.textContent = 'Notícia publicada com sucesso!';
           noticiaForm.reset();
-          carregarNoticias();
+          await carregarNoticias();
         } else if (res.status === 401 || res.status === 403) {
           messageEl.style.color = 'red';
           messageEl.textContent = 'Você não tem permissão para publicar notícias. Faça login novamente.';
@@ -262,6 +270,7 @@
       }
     });
 
+    // Inicializa a página
     carregarNoticias();
     mostrarFormularioSeLogado();
   </script>
