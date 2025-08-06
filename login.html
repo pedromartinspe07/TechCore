@@ -13,6 +13,82 @@
       font-family: 'Courier New', Courier, monospace;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #111;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px #00ff00aa;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .glitch {
+      text-shadow: 1px 0 red, -1px 0 blue;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #00ff00;
+      margin: 4px 0;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links li a {
+      color: #00ff00;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links li a.active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .nav-links li a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #111;
+        padding: 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+    }
+
+    main {
+      padding: 20px;
     }
 
     h2 {
@@ -45,6 +121,7 @@
       color: #00ff00;
       border-radius: 5px;
       font-family: inherit;
+      box-sizing: border-box;
     }
 
     button {
@@ -102,25 +179,42 @@
     </nav>
   </header>
 
-  <!-- Login Form -->
-  <h2>Login TechCore</h2>
-  <form id="loginForm">
-    <label for="username">Usuário:</label>
-    <input type="text" id="username" name="username" required />
+  <!-- Conteúdo principal -->
+  <main>
+    <h2>Login TechCore</h2>
+    <form id="loginForm">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username" required minlength="3" />
 
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required />
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required minlength="3" />
 
-    <button type="submit">Entrar</button>
-  </form>
+      <button type="submit" id="loginButton">Entrar</button>
+    </form>
+  </main>
 
-  <!-- Script de autenticação -->
+  <!-- Scripts -->
   <script>
+    // Menu responsivo
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('active');
+    });
+
+    // Login
     document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const button = document.getElementById('loginButton');
+
+      if (username.length < 3 || password.length < 3) {
+        alert('Usuário e senha devem ter pelo menos 3 caracteres.');
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Entrando...';
 
       try {
         const response = await fetch('https://techcore-backend-production.up.railway.app/api/login', {
@@ -138,6 +232,9 @@
         }
       } catch (error) {
         alert('Erro ao conectar ao servidor: ' + error.message);
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Entrar';
       }
     });
   </script>
