@@ -4,78 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monitores - TechCore</title>
-  <link rel="icon" href="img/favicon.ico" type="image/ico">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/monitor.css" />
-</head>
-<body>
-  <header>
-    <nav>
-      <div class="logo">
-        <a href="index.html" style="text-decoration: none; color: inherit;">
-          TECH<span class="glitch">CORE</span>
-        </a>
-      </div>
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="processadores.html">Processadores</a></li>
-        <li><a href="gpus.html">GPUs</a></li>
-        <li><a href="memoria.html">Memória</a></li>
-        <li><a href="terminal.html">Terminal</a></li>
-        <li><a href="benchmark.html">Benchmark</a></li>
-        <li><a href="overclock.html">Overclock</a></li>
-        <li><a href="monitor.html">Monitores</a></li>
-        <li><a href="noticias.html">Notícias</a></li>
-        <li><a href="login.html" id="login-btn">Login</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="monitor-container">
-    <h1>Guia de Monitores</h1>
-    <p>O monitor é o principal dispositivo de saída de vídeo do computador. Escolher o monitor certo faz toda a diferença para jogos, trabalho e conforto visual.</p>
-    <h2>Resolução</h2>
-    <ul>
-      <li><b>Full HD (1920x1080):</b> Padrão para a maioria dos usuários e gamers.</li>
-      <li><b>Quad HD (2560x1440):</b> Mais espaço e nitidez, ideal para produtividade e jogos competitivos.</li>
-      <li><b>4K (3840x2160):</b> Máxima definição, ótimo para edição e uso profissional.</li>
-    </ul>
-    <h2>Taxa de Atualização</h2>
-    <ul>
-      <li><b>60Hz:</b> Suficiente para uso comum e trabalho.</li>
-      <li><b>75Hz a 165Hz:</b> Mais fluidez em jogos, especialmente FPS e eSports.</li>
-      <li><b>240Hz+:</b> Para gamers profissionais que buscam o máximo desempenho.</li>
-    </ul>
-    <h2>Tipos de Painel LCD</h2>
-    <ul>
-      <li><b>TN (Twisted Nematic):</b> Resposta rápida, preço baixo, cores e ângulos de visão mais limitados.</li>
-      <li><b>IPS (In-Plane Switching):</b> Cores vivas, ótimos ângulos de visão, resposta boa para jogos e uso geral.</li>
-      <li><b>VA (Vertical Alignment):</b> Melhor contraste, pretos profundos, bom para filmes e uso misto.</li>
-    </ul>
-    <h2>Outros Fatores</h2>
-    <ul>
-      <li><b>Tamanho:</b> 23" a 27" é o mais comum para desktop.</li>
-      <li><b>Tempo de resposta:</b> Menor é melhor para jogos (1ms a 5ms).</li>
-      <li><b>Tecnologias:</b> G-Sync, FreeSync, HDR, curvo, ultrawide, etc.</li>
-    </ul>
-    <button class="monitor-benchmark-btn" onclick="location.href='monitor-benchmark.html'">Ir para Benchmark de Monitor</button>
-  </div>
-  <script src="js/script.js"></script>
-  <script>
-  const toggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-  });
-</script>
-  <a href="pc-builder.html" class="pc-builder-fab" title="Monte seu PC">🛠️ Montar PC</a>
   <style>
     .pc-builder-fab {
       position: fixed;
@@ -111,5 +42,84 @@
       }
     }
   </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          TECH<span class="glitch">CORE</span>
+        </a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu de navegação">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="processadores.html">Processadores</a></li>
+        <li><a href="gpus.html">GPUs</a></li>
+        <li><a href="memoria.html">Memória</a></li>
+        <li><a href="terminal.html">Terminal</a></li>
+        <li><a href="benchmark.html">Benchmark</a></li>
+        <li><a href="overclock.html">Overclock</a></li>
+        <li><a href="monitor.html">Monitores</a></li>
+        <li><a href="noticias.html">Notícias</a></li>
+        <li><a href="login.html" id="login-btn">Login</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="monitor-container">
+    <h1>Guia de Monitores</h1>
+    <p>O monitor é o principal dispositivo de saída de vídeo do computador. Escolher o monitor certo faz toda a diferença para jogos, trabalho e conforto visual.</p>
+
+    <h2>Resolução</h2>
+    <ul>
+      <li><b>Full HD (1920x1080):</b> Padrão para a maioria dos usuários e gamers.</li>
+      <li><b>Quad HD (2560x1440):</b> Mais espaço e nitidez, ideal para produtividade e jogos competitivos.</li>
+      <li><b>4K (3840x2160):</b> Máxima definição, ótimo para edição e uso profissional.</li>
+    </ul>
+
+    <h2>Taxa de Atualização</h2>
+    <ul>
+      <li><b>60Hz:</b> Suficiente para uso comum e trabalho.</li>
+      <li><b>75Hz a 165Hz:</b> Mais fluidez em jogos, especialmente FPS e eSports.</li>
+      <li><b>240Hz+:</b> Para gamers profissionais que buscam o máximo desempenho.</li>
+    </ul>
+
+    <h2>Tipos de Painel LCD</h2>
+    <ul>
+      <li><b>TN (Twisted Nematic):</b> Resposta rápida, preço baixo, cores e ângulos de visão mais limitados.</li>
+      <li><b>IPS (In-Plane Switching):</b> Cores vivas, ótimos ângulos de visão, resposta boa para jogos e uso geral.</li>
+      <li><b>VA (Vertical Alignment):</b> Melhor contraste, pretos profundos, bom para filmes e uso misto.</li>
+    </ul>
+
+    <h2>Outros Fatores</h2>
+    <ul>
+      <li><b>Tamanho:</b> 23" a 27" é o mais comum para desktop.</li>
+      <li><b>Tempo de resposta:</b> Menor é melhor para jogos (1ms a 5ms).</li>
+      <li><b>Tecnologias:</b> G-Sync, FreeSync, HDR, curvo, ultrawide, etc.</li>
+    </ul>
+
+    <button class="monitor-benchmark-btn" onclick="location.href='monitor-benchmark.html'">Ir para Benchmark de Monitor</button>
+  </main>
+
+  <a href="pc-builder.html" class="pc-builder-fab" title="Monte seu PC">🛠️ Montar PC</a>
+
+  <script src="js/script.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById('menu-toggle');
+      const navLinks = document.getElementById('nav-links');
+
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 </html>
